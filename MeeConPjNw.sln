@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeeConPjnw", "MeeConPjnw\MeeConPjnw.csproj", "{601373DA-C05B-4B37-96A3-9DE33D2945A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{601373DA-C05B-4B37-96A3-9DE33D2945A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601373DA-C05B-4B37-96A3-9DE33D2945A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601373DA-C05B-4B37-96A3-9DE33D2945A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601373DA-C05B-4B37-96A3-9DE33D2945A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BA28F76-A90F-4558-81E7-C2E759C1995A}
+	EndGlobalSection
+EndGlobal
