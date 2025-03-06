@@ -5,3 +5,68 @@
 }
 
 
+@section MiddleContent {
+    <div class="post-container">
+        <!-- Utilizatorul care a postat -->
+        <div class="post-header">
+            <div class="user-info">
+                <div class="profile-photo">
+                    <img src="~/Images/profile-1.jpg" alt="User Profile">
+                </div>
+                <div class="user-details">
+                    <h4>Ciochina Cristian</h4>
+                    <p class="text-muted">@DateTime.Now.ToString("HH:mm")</p>
+                </div>
+            </div>
+            <button class="more-options">
+                <i class="uil uil-ellipsis-h"></i> <!-- Pictograma de mai multe opțiuni -->
+            </button>
+        </div>
+
+        <!-- Imaginea postată -->
+        <div class="post-image">
+            <img src="~/Images/profile-5.jpg" alt="Post Image">
+        </div>
+
+        <!-- Interacțiuni (like, comment, share) -->
+        <div class="post-actions">
+            <button class="like-btn">
+                <i class="uil uil-heart"></i> Like
+            </button>
+            <button class="comment-btn">
+                <i class="uil uil-comment"></i> Comment
+            </button>
+            <button class="share-btn">
+                <i class="uil uil-share-alt"></i> Share
+            </button>
+        </div>
+
+        <!-- Comentarii -->
+        <div class="comments-section">
+            <div class="comment">
+                <div class="profile-photo">
+                    <img src="~/Images/profile-2.jpg" alt="User Comment">
+                </div>
+                <div class="comment-body">
+                    <b>Dranca Andrei</b> Nice picture!
+                    <span class="text-muted">2 hours ago</span>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="profile-photo">
+                    <img src="~/Images/profile-3.jpg" alt="User Comment">
+                </div>
+                <div class="comment-body">
+                    <b>Muzicantul Vladimir</b> Amazing shot!
+                    <span class="text-muted">3 hours ago</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adăugare comentariu -->
+        <div class="add-comment">
+            <input type="text" placeholder="Add a comment..." />
+            <button class="submit-comment">Post</button>
+        </div>
+    </div>
+}
