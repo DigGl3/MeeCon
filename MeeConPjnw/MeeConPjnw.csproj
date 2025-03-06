@@ -89,6 +89,42 @@
   <ItemGroup>
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\feed-1.jpg" />
+    <Content Include="Images\feed-2.jpg" />
+    <Content Include="Images\feed-3.jpg" />
+    <Content Include="Images\feed-4.jpg" />
+    <Content Include="Images\feed-5.jpg" />
+    <Content Include="Images\feed-6.jpg" />
+    <Content Include="Images\feed-7.jpg" />
+    <Content Include="Images\profile-1.jpg" />
+    <Content Include="Images\profile-10.jpg" />
+    <Content Include="Images\profile-11.jpg" />
+    <Content Include="Images\profile-12.jpg" />
+    <Content Include="Images\profile-13.jpg" />
+    <Content Include="Images\profile-14.jpg" />
+    <Content Include="Images\profile-15.jpg" />
+    <Content Include="Images\profile-16.jpg" />
+    <Content Include="Images\profile-17.jpg" />
+    <Content Include="Images\profile-18.jpg" />
+    <Content Include="Images\profile-19.jpg" />
+    <Content Include="Images\profile-2.jpg" />
+    <Content Include="Images\profile-20.jpg" />
+    <Content Include="Images\profile-3.jpg" />
+    <Content Include="Images\profile-4.jpg" />
+    <Content Include="Images\profile-5.jpg" />
+    <Content Include="Images\profile-6.jpg" />
+    <Content Include="Images\profile-7.jpg" />
+    <Content Include="Images\profile-8.jpg" />
+    <Content Include="Images\profile-9.jpg" />
+    <Content Include="Images\social logo.png" />
+    <Content Include="Images\story-1.jpg" />
+    <Content Include="Images\story-2.jpg" />
+    <Content Include="Images\story-3.jpg" />
+    <Content Include="Images\story-4.jpg" />
+    <Content Include="Images\story-5.jpg" />
+    <Content Include="Images\story-6.jpg" />
+    <Content Include="Views\Styles\style-index.css" />
+    <Content Include="Views\Styles\style-Layout.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
