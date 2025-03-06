@@ -7,56 +7,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - MeeCon</title>
+    <title>Create Account</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: white;
-            color: #ffffff;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
         .container {
-            max-width: 800px;
-            padding: 30px;
-            background: #1e1e1e;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
             text-align: center;
         }
 
-        h1 {
-            color: #00aaff;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        h2 {
+            color: #007bff;
         }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
-            color: #cccccc;
+        input {
+            width: 95%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
-        .highlight {
-            color: #00aaff;
-            font-weight: bold;
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+            button:hover {
+                background-color: #0056b3;
+            }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="container">
-        <h1>About Us</h1>
-        <p><span class="highlight">MeeCon</span> is an innovative platform designed to simplify communication and collaboration. Our mission is to provide seamless and efficient tools for individuals and businesses to connect, share ideas, and achieve their goals together.</p>
-        <p>With MeeCon, you can enjoy a user-friendly interface, advanced features, and a secure environment to enhance productivity and teamwork. Whether you are managing a project, hosting a virtual meeting, or simply staying in touch with your community, MeeCon makes it easy and effective.</p>
-        <p>Our team is dedicated to continuous improvement and innovation, ensuring that MeeCon remains at the forefront of modern communication technology.</p>
-        <p>Join us and experience a smarter way to connect!</p>
+        <h2>Create Account</h2>
+        <form>
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Gmail" required>
+            <input type="date" required>
+            <button type="submit">Sign Up</button>
+        </form>
     </div>
+
 </body>
 </html>
