@@ -123,8 +123,8 @@
     <Content Include="Images\story-4.jpg" />
     <Content Include="Images\story-5.jpg" />
     <Content Include="Images\story-6.jpg" />
+    <Content Include="style-Layout.css" />
     <Content Include="Views\Styles\style-index.css" />
-    <Content Include="Views\Styles\style-Layout.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -140,10 +140,10 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
