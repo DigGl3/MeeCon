@@ -153,6 +153,16 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MeeCon.BusinessLogic\MeeCon.BusinessLogic.csproj">
+      <Project>{b199a138-521c-4ead-9a12-030f7dc7e990}</Project>
+      <Name>MeeCon.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MeeCon.Domain\MeeCon.Domain.csproj">
+      <Project>{8116a368-7ae7-42c9-a0ba-82b27f1cef49}</Project>
+      <Name>MeeCon.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
