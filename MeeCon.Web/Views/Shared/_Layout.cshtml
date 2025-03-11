@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>@ViewData["Title"] - MeeCon</title>
     <!-- STYLE -->
-    <link rel="stylesheet" href="~/style-Layout.css">
+    <link rel="stylesheet" href="~/wwwroot/css/style-Layout.css" asp-append-version="true" >
 
     <!-- ICONS -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
@@ -52,7 +52,7 @@
                         <span><i class="uil uil-home"></i></span> <h3>Home</h3>
                     </a>
                     <a class="menu-item">
-                        <span><i class="uil uil-compass"></i></span> 
+                        <span><i class="uil uil-compass"></i></span>
                         <h3>Explore</h3>
                     </a>
                     <a class="menu-item" id="notifications">
@@ -95,10 +95,11 @@
                 <label for="create-post" class="btn btn-primary">Create Post</label>
             </div>
             <div class="middle">
-                
+                @RenderSection("MiddleContent", required: false)
             </div>
+
             <div class="right">
-                
+
             </div>
         </div>
         <div class="extra-container">
