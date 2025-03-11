@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>@ViewData["Title"] - MeeCon</title>
     <!-- STYLE -->
-    <link rel="stylesheet" href="~/wwwroot/css/style-Layout.css" asp-append-version="true" >
+    <link rel="stylesheet" href="~/wwwroot/css/style-Layout.css">
 
     <!-- ICONS -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
@@ -20,10 +20,10 @@
                 <input type="search" placeholder="Search for grups or people">
             </div>
             <div class="create">
-                <label class="btn btn-primary" for="create-post">Create</label>
                 <div class="profile-photo">
                     <img src="~/Images/profile-1.jpg">
                 </div>
+                <a class="btn btn-primary" href="Login">Login</a>
             </div>
         </div>
     </nav>
@@ -97,7 +97,6 @@
             <div class="middle">
                 @RenderSection("MiddleContent", required: false)
             </div>
-
             <div class="right">
 
             </div>
