@@ -1,6 +1,4 @@
 ﻿using MeeCon.BusinessLogic.Interfaces;
-using MeeCon.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
 using System.Web.Mvc;
 using System;
 
@@ -43,6 +41,15 @@ namespace MeeCon.Web.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult Register()
+        {
+            return View();
         }
     }
 }
