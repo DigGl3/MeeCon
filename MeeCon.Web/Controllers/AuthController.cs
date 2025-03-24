@@ -1,55 +1,40 @@
-﻿using MeeCon.BusinessLogic.Interfaces;
-using System.Web.Mvc;
+﻿using MeeCon.Web.Models.Auth;
+using MeeCon.BusinessLogic.Interfaces;
+using MeeCon.Domain.Model.User;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace MeeCon.Web.Controllers
 {
-    [ApiController]
-    [Route("api/auth")]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
-        private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService)
+        private readonly IAuth _auth;
+        public AuthController()
         {
-            _authService = authService;
+            var bl = new BusinessLogic.BusinessLogic();
+            _auth = bl.GetAuthBL();
         }
-
-        [HttpPost("register")]
-        public IActionResult Register(string username, string email, string password)
-        {
-            try
-            {
-                var user = _authService.Register(username, email, password);
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("login")]
-        public IActionResult Login(string email, string password)
-        {
-            try
-            {
-                var user = _authService.Login(email, password);
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        public ActionResult Login()
+        // GET: Auth
+        public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Register()
+        [HttpPost]
+        public ActionResult Auth(UserDataLogin login)
         {
+            var data = new UserLoginBL
+            {
+                Username = login.Username,
+                Password = login.Password,
+                UserIP = "localhost"
+            };
+            string token = _auth.UserAuthLogic(data);
             return View();
         }
+        
     }
+    
 }

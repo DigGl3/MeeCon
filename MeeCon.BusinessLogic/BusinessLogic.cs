@@ -1,4 +1,5 @@
 ﻿using MeeCon.BusinessLogic.Interfaces;
+using MeeCon.BusinessLogic.BLStructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MeeCon.BusinessLogic
 {
-    class BussinesLogic
+    public class BusinessLogic
     {
-        public ISession GetSessionBL()
-        {
-            return new SessionBL();
+        public IAuth GetAuthBL()
+        { 
+            return new AuthBL();
         }
     }
 }
