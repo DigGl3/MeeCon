@@ -13,7 +13,7 @@ namespace MeeCon.BusinessLogic.BLStructure
     {
         public string UserAuthLogic(UserLoginBL data)
         {
-            throw new NotImplementedException();
+        return UserAuthLogicAction(data);
         }
     }
 }
