@@ -1,6 +1,4 @@
-@{
-    Layout = null;
-}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,11 +57,18 @@
 
     <div class="container">
         <h2>Create Account</h2>
-        <form>
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Gmail" required>
-            <input type="date" required>
-            <button type="submit">Sign Up</button>
+        <form method="post">
+            <fieldset>
+                <p>
+                    <label for="Username">Username:</label>
+                    <input type="text" name="username" value="@Request.Form["username"]" />
+                </p>
+                <p><label for="Username">Password:</label>
+                <input type="password" name="password" value="@Request.Form["password"]" />
+                </p>
+
+                <button type="submit" name="buttonregister" value="Register">Sign Up</button>
+            </fieldset>
         </form>
     </div>
 
