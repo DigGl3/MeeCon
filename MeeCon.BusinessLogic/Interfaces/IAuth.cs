@@ -10,7 +10,7 @@ namespace MeeCon.BusinessLogic.Interfaces
 {
     public interface IAuth
     {
-        string UserAuthLogic(UserLoginBL data);
+        string UserAuthLogic(UDbModel data);
 
     }
 }
