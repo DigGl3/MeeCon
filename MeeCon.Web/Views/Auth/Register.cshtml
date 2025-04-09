@@ -1,3 +1,6 @@
+﻿@{ 
+    Layout = null;
+}
 
 
 <!DOCTYPE html>
@@ -63,8 +66,9 @@
                     <label for="Username">Username:</label>
                     <input type="text" name="username" value="@Request.Form["username"]" />
                 </p>
-                <p><label for="Username">Password:</label>
-                <input type="password" name="password" value="@Request.Form["password"]" />
+                <p>
+                    <label for="Username">Password:</label>
+                    <input type="password" name="password" value="@Request.Form["password"]" />
                 </p>
 
                 <button type="submit" name="buttonregister" value="Register">Sign Up</button>

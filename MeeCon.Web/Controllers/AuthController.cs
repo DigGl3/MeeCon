@@ -11,30 +11,17 @@ namespace MeeCon.Web.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly IAuth _auth;
-        public AuthController()
-        {
-            var bl = new BusinessLogic.BusinessLogic();
-            _auth = bl.GetAuthBL();
-        }
-        // GET: Auth
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Auth(UserDataLogin login)
+
+        public ActionResult Register()
         {
-            var data = new UserLoginBL
-            {
-                Username = login.Username,
-                Password = login.Password,
-                UserIP = "localhost"
-            };
-            string token = _auth.UserAuthLogic(data);
             return View();
         }
-        
+
+
     }
     
 }
