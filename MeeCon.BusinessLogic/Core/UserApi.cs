@@ -1,4 +1,5 @@
-﻿using MeeCon.Domain.Model.User;
+﻿using MeeCon.Domain.Enum;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,29 @@ namespace MeeCon.BusinessLogic.Core
 {
     public class UserApi
     {
-       //=================================AUTH======================
-       public string UserAuthLogicAction(UserLoginBL data)
+        //=================================AUTH======================
+        public void RegisterUser(ULoginData data)
         {
+           
+                using (var context = new DataContext())
+                {
+                    if (context.Users.Any(u => u.Username == data.Credential))
+                    {
+                        throw new Exception("User already exists");
+                    }
 
+                    var newUser = new User
+                    {
+                        Username = data.Credential,
+                        Password = data.Password,
 
-            return "token-key";
+                        CreatedAt = DateTime.UtcNow,
+                        FullName = data.FullName
+                    };
+                    context.Users.Add(newUser);
+                    context.SaveChanges();
+                }
+            
         }
     }
 }
