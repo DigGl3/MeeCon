@@ -35,7 +35,7 @@ namespace MeeCon.BusinessLogic.Core
                         Password = data.Password,
                         CreatedAt = DateTime.UtcNow,
                         userIp = data.LoginIp,
-                        Email = "helloworld@gmail.com"
+                        Email = data.Email
                     };
 
                     context.Users.Add(newUser);

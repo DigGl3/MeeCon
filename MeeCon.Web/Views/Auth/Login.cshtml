@@ -1,32 +1,24 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MeeCon</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+
+        .formName {
+            text-align: left;
         }
 
         .box {
+            align-content:center;
             background-color: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 400px;
-            text-align: center;
+            text-align: left;
         }
 
         h1 {
@@ -37,7 +29,7 @@
             color: #1877f2;
         }
 
-        input {
+        .inputN {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -72,27 +64,31 @@
             text-align: center;
         }
 
-            .register-link:hover {
-                background-color: #d0e1f9;
-                text-decoration: underline;
-            }
+        .Centercenter {
+            text-align: center;
+        }
+
+        .register-link:hover {
+            background-color: #d0e1f9;
+            text-decoration: underline;
+        }
     </style>
-</head>
-<body>
+
+@section MiddleContent {
 
     <div class="box">
-        <h1>MeeCon</h1>
-        <h2>Login</h2>
+        <h1 class="Centercenter">MeeCon</h1>
+        <h2 class="Centercenter">Login</h2>
 
         <form action="@Url.Action("Login", "Auth")" method="post">
             <div class="form-group">
                 @Html.AntiForgeryToken()
-                <label for="fullName">Full Name</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="fullName">Username:</label>
+                <input type="text" class="inputN" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <label for="password">Password:</label>
+                <input type="password" class="inputN" id="password" name="password" required>
             </div>
             <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
@@ -100,5 +96,4 @@
         <a href="Register" class="register-link">Don't have an account? Register</a>
     </div>
 
-</body>
-</html>
+}
