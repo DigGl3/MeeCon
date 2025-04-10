@@ -105,7 +105,7 @@ namespace MeeCon.BusinessLogic.Core
                         };
                     }
 
-                    if (user.Password != HashPassword(data.Password))
+                    if (user.Password != data.Password)
                     {
                         return new UserLoginResult
                         {
@@ -136,13 +136,6 @@ namespace MeeCon.BusinessLogic.Core
             }
         }
 
-        private string HashPassword(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
-            }
-        }
+        
     }
 }
