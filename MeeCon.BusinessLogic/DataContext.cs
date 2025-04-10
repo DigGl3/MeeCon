@@ -4,18 +4,34 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Collections.Specialized.BitVector32;
+using MeeCon.Domain.Model.User;
 
-internal class DataContext : DbContext
+namespace MeeCon.BusinessLogic
 {
-    public DbSet<User> Users { get; set; }
-
-    public DataContext() : base("name=MeeConAppDB")
+    public class DataContext : DbContext
     {
-    }
+        public DbSet<UDbModel> Users { get; set; }
 
-    protected override void OnModelCreating(DbModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+        public DataContext() : base("name=MeeConAppDB")
+        {
+            Database.SetInitializer<DataContext>(null);
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<UDbModel>()
+                .HasKey(u => u.Id)
+                .Property(u => u.Username)
+                .IsRequired()
+                .HasMaxLength(30);
+
+            modelBuilder.Entity<UDbModel>()
+                .Property(u => u.Password)
+                .IsRequired()
+                .HasMaxLength(32);
+
+        }
     }
 }

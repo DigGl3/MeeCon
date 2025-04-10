@@ -22,11 +22,8 @@ namespace MeeCon.Domain.Model.User
         [Display(Name = "Password")]
         [StringLength(32, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long.")]
         public string Password { get; set; }
-        [Required]
-        [Display(Name = "Email")]
-        [StringLength(50, ErrorMessage = "Email cannot be longer than 500 characters.")]
-        public string Email { get; set; }
         public DateTime CreatedAt { get; set; }
         public string userIp { get; set; }
+        public string Email { get; set; }
     }   
 }
