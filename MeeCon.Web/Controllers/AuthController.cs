@@ -60,7 +60,7 @@ namespace MeeCon.Web.Controllers
         public ActionResult Register()
         {
             if (Session["UserId"] != null)
-            {
+            { 
                 return RedirectToAction("Index", "Home");
             }
             return View();
