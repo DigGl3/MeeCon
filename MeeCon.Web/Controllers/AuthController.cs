@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MeeCon.BusinessLogic.Core;
 using MeeCon.Domain.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeeCon.Web.Controllers
 {
@@ -74,11 +75,13 @@ namespace MeeCon.Web.Controllers
                 {
                     var result = _userApi.RegisterUser(new ULoginData
                     {
+                        Email = model.Email,
                         Credential = model.Username,
                         Password = model.Password,
                         LoginIp = Request.UserHostAddress,
                         LoginDateTime = DateTime.UtcNow,
                         FullName = model.Username
+                        
                     });
 
                     if (result.Success)

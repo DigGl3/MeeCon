@@ -47,13 +47,17 @@
                     </div>
                 </a>
                 <!-- ========================== SIDEBAR ==================-->
+                <div>
+                    @RenderSection("SidebarContent", required: false)
+                </div>
+                <!-- ========================== SIDEBAR ==================-->
                 <div class="sidebar">
-                    <a class="menu-item active">
+                    <a class="menu-item active" href="@Url.Action("Index", "Home")">
                         <span><i class="uil uil-home"></i></span> <h3>Home</h3>
                     </a>
-                    <a class="menu-item">
+                    <a class="menu-item" href="@Url.Action("About", "Home")">
                         <span><i class="uil uil-compass"></i></span>
-                        <h3>Explore</h3>
+                        <h3>About</h3>
                     </a>
                     <a class="menu-item" id="notifications">
                         <span><i class="uil uil-bell"> <small class="notification-count">9+</small></i></span> <h3>Notification</h3>

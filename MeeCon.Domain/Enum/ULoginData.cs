@@ -13,6 +13,7 @@ namespace MeeCon.Domain.Enum
         public string LoginIp { get; set; }
         public DateTime LoginDateTime { get; set; }
         public string FullName { get; set; }
+        public string Email { get; set; }
     }
 
     public class UserLoginResult
