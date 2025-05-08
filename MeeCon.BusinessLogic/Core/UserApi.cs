@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Validation;
+using System.Runtime.InteropServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MeeCon.BusinessLogic.Core
 {
@@ -34,8 +36,8 @@ namespace MeeCon.BusinessLogic.Core
                         Username = data.Credential,
                         Password = data.Password,
                         CreatedAt = DateTime.UtcNow,
-                        userIp = data.LoginIp,
-                        Email = data.Email
+                        Email = data.Email,
+                        ProfileImage = "~/wwwroot/images/avatar/user.png"
                     };
 
                     context.Users.Add(newUser);
@@ -72,7 +74,7 @@ namespace MeeCon.BusinessLogic.Core
                         Status = true,
                         StatusMsg = "Registration successful",
                         Success = true,
-                        UserId = newUser.Id,
+                        UserId = newUser.UserId,
                         FullName = data.FullName
                     };
                 }
@@ -120,7 +122,7 @@ namespace MeeCon.BusinessLogic.Core
                         Status = true,
                         StatusMsg = "Login successful",
                         Success = true,
-                        UserId = user.Id,
+                        UserId = user.UserId,
                         FullName = user.Username
                     };
                 }

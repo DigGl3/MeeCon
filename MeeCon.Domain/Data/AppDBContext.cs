@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeeCon.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,6 +9,9 @@ namespace MeeCon.Web.Controllers.Data
 {
 	public class AppDBContext: DbContext
 	{
-
-	}
+		public AppDBContext() : base("MeeConDB")
+        {
+        }
+        public DbSet<Post> Posts { get; set; }
+    }
 }

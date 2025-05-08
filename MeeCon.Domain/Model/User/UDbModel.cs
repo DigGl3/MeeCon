@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeeCon.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,7 @@ namespace MeeCon.Domain.Model.User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [Required]
         [Display(Name = "Username")]
         [StringLength(30, ErrorMessage = "Username cannot be longer than 30 characters.")]
@@ -23,7 +24,9 @@ namespace MeeCon.Domain.Model.User
         [StringLength(32, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long.")]
         public string Password { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string userIp { get; set; }
         public string Email { get; set; }
+        public string ProfileImage { get; set; }
+        
+        public ICollection<Post> Posts { get; set; }
     }   
 }
