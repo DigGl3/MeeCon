@@ -55,6 +55,7 @@
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="DbInitializer.cs" />
     <Compile Include="DBModel\Seed\UserContext.cs" />
     <Compile Include="Interfaces\IAuth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
