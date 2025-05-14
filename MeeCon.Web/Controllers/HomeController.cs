@@ -25,7 +25,7 @@ namespace MeeConPjnw.Controllers
             _context = new DataContext();
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var allPost = _context.Posts
                 .Include(p => p.User)
@@ -39,7 +39,7 @@ namespace MeeConPjnw.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> CreatePost( PostVM post)
+        public ActionResult CreatePost( PostVM post)
         {
             int loggedInUser = 1;
             var newPost = new Post
@@ -53,7 +53,7 @@ namespace MeeConPjnw.Controllers
             };
 
             _context.Posts.Add(newPost);
-            await _context.SaveChangesAsync();
+             _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
 
