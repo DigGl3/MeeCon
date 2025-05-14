@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Data\AppDBContext.cs" />
     <Compile Include="Enum\ULoginData.cs" />
+    <Compile Include="Model\Home\PostVM.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\User\UDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
