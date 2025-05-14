@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using MeeCon.Web.Models;
 using MeeCon.Domain.Model.Home;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MeeConPjnw.Controllers
 {
@@ -38,8 +39,10 @@ namespace MeeConPjnw.Controllers
         {
             return View();
         }
+
+
         [HttpPost]
-        public ActionResult CreatePost( PostVM post)
+        public async Task<IActionResult> CreatePost(PostVM post)
         {
             int loggedInUser = 1;
             var newPost = new Post
@@ -53,11 +56,11 @@ namespace MeeConPjnw.Controllers
             };
 
             _context.Posts.Add(newPost);
-             _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); 
 
-            return RedirectToAction("Index");
-
+            return (IActionResult)RedirectToAction("Index");
         }
+
 
     }
 }

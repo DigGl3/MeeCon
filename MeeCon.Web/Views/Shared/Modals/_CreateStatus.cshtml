@@ -2,7 +2,6 @@
 @model PostVM
 
 <div class="hidden lg:p-20" id="create-status" uk-modal="">
-
     <div class="uk-modal-dialog tt relative overflow-hidden mx-auto bg-white shadow-xl rounded-lg md:w-[520px] w-full">
         <div class="text-center py-4 border-b mb-0">
             <h2 class="text-sm font-medium text-black">Create Status</h2>
@@ -16,10 +15,10 @@
         <form asp-controller="Home" asp-action="CreatePost" method="post">
             <div class="space-y-5 mt-3 p-2">
                 <textarea class="w-full !text-black placeholder:!text-black !bg-white !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl"
-                          name="content"
-                          asp-for="@Model.Content"
+                          asp-for="Content"
                           rows="2"
                           placeholder="What do you have in mind?"></textarea>
+                <span asp-validation-for="Content" class="text-red-500"></span>
             </div>
 
             <div class="flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap">
@@ -29,9 +28,9 @@
                     <img id="imagePreview" src="#" class="w-full h-auto rounded" />
                 </div>
 
-                <button type="button" id="imageUploadBtn" class="flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100">
+                <label for="imageUpload" class="flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 cursor-pointer">
                     <ion-icon name="image" class="text-base"></ion-icon> Image
-                </button>
+                </label>
             </div>
 
             <div class="p-5 flex justify-between items-center">
@@ -39,9 +38,6 @@
                     <button type="submit" class="button bg-blue-500 text-white py-2 px-12 text-[14px]"> Create </button>
                 </div>
             </div>
-
         </form>
-
     </div>
-
 </div>

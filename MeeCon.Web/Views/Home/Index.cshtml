@@ -17,7 +17,6 @@
 
 
 
-
 <main id="site__main" class="2xl:ml-[--w-side]  xl:ml-[--w-side-sm] p-2.5 h-[calc(100vh-var(--m-top))] mt-[--m-top]">
     <div class="lg:flex 2xl:gap-16 gap-12 max-w-[1065px] mx-auto" id="js-oversized">
         <div class="max-w-[680px] mx-auto">
@@ -92,110 +91,14 @@
                         Currently, there are no posts available. Would you like to create the first one?
                     </div>
                 }
-
-                @foreach (var post in Model)
+                else
                 {
-                    <div class="bg-white rounded-xl shadow-sm text-sm font-medium border1">
-
-                        @* Post heading *@
-                        <div class="flex gap-3 sm:p-4 p-2.5 text-sm font-medium">
-                            <a>
-                                <img src="@(post.User.ProfileImage ?? "~/wwroot/images/avatar/user.png")" class="w-9 h-9 rounded-full" />
-                            </a>
-                            <div class="flex-1">
-                                <a>
-                                    <h4 class="text-black">@post.User.Username</h4>
-                                    <div class="text-xs text-gray-500/80">@post.DateCreated.ToString("MM/dd/yyyy HH:mm")</div>
-                                </a>
-                            </div>
-
-                            <div class="-mr-1">
-                                <button type="button" class="button-icon w-8 h-8"> <ion-icon class="text-xl" name="ellipsis-horizontal"></ion-icon> </button>
-                                <div class="w-[245px]" uk-dropdown="pos: bottom-right; animation: uk-animation-scale-up uk-transform-origin-top-right; animate-out: true; mode: click">
-                                    <form>
-                                        <input type="hidden" name="postId" />
-                                        <button type="submit" class="hover:!bg-red-50 icon-link">
-                                            <ion-icon name="lock-closed-outline"></ion-icon>  Set as private
-                                        </button>
-                                    </form>
-
-                                    <hr>
-                                    <form asp-controller="Home" asp-action="Delete">
-                                        <input type="hidden" name="postId" />
-                                        <button type="submit" class="text-red-400 hover:!bg-red-50 icon-link">
-                                            <ion-icon name="trash-bin-outline"></ion-icon>  Delete Post
-                                        </button>
-                                    </form>
-                                    <form asp-controller="Home" asp-action="Report">
-                                        <input type="hidden" name="postId" />
-                                        <button type="submit" class="hover:!bg-red-50 icon-link">
-                                            <ion-icon class="text-xl shrink-0" name="flag-outline"></ion-icon>  Report
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        @* Post content *@
-                        <a>
-                            <div class="sm:px-4 p-2.5 pt-0 w-full">
-                                <p class="font-normal">
-                                    @post.Content
-                                </p>
-                            </div>
-                        </a>
-
-                        @if (!string.IsNullOrEmpty(post.ImageUrl))
-                        {
-                            <a>
-                                <div class="relative w-full lg:h-96 h-full sm:px-4">
-                                    <img src="@post.ImageUrl" class="sm:rounded-lg w-full h-full object-cover" />
-                                </div>
-                            </a>
-                        }
-
-
-                        @* Icons *@
-                        <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
-
-                            <div class="flex items-center gap-2.5">
-                                <a class="button-icon text-red-500 bg-red-100">
-                                    <ion-icon class="text-lg" name="heart"></ion-icon>
-                                </a>
-                                <a href="#">24</a>
-                            </div>
-
-                            <div class="flex items-center gap-3">
-                                <a class="button-icon">
-                                    <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
-                                </a>
-                                <a href="#">5</a>
-                            </div>
-
-                            <div class="ml-auto"></div>
-
-                            <div>
-                                <a class="button-icon ml-auto">
-                                    <ion-icon class="text-lg" name="bookmark-outline"></ion-icon>
-                                </a>
-                            </div>
-                        </div>
-
-                        @* Add comment section *@
-                        <div>
-                            <div class="sm:px-4 sm:py-3 p-2.5 border-t border-gray-100 flex items-center gap-1">
-                                <img src="~/images/avatar/user.png" class="w-6 h-6 rounded-full" />
-
-                                <div class="flex-1 relative overflow-hidden h-10">
-                                    <textarea placeholder="Add Comment...." rows="1" class="w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
-                                </div>
-
-                                <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
-
-                            </div>
-                        </div>
-                    </div>
+                    foreach (var post in Model)
+                    {
+                        @Html.Partial("~/Views/Shared/Home/_Post.cshtml", post)
+                    }
                 }
+
 
 
 
@@ -204,135 +107,17 @@
         <div class="flex-1">
             <div class="lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6">
                 <div class="box p-5 px-6">
-                    <div class="flex items-baseline justify-between text-black">
-                        <h3 class="font-bold text-base"> People you may know </h3>
-                    </div>
-
-                    <div class="side-list">
-                        <div class="side-list-item">
-                            <a>
-                                <img src="~/wwwroot/images/avatar/user.png" class="side-list-image rounded-full" />
-                            </a>
-                            <div class="flex-1">
-                                <a>
-                                    <h4 class="side-list-title">
-                                        First User
-                                    </h4>
-                                </a>
-                                <div class="side-list-info">5 followers</div>
-                            </div>
-                            <form>
-                                <button type="submit" class="button bg-primary-soft text-primary">Follow</button>
-                            </form>
-                        </div>
-                        <div class="side-list-item">
-                            <a>
-                                <img src="~/wwwroot/images/avatar/user.png" class="side-list-image rounded-full" />
-                            </a>
-                            <div class="flex-1">
-                                <a>
-                                    <h4 class="side-list-title">
-                                        Second User
-                                    </h4>
-                                </a>
-                                <div class="side-list-info">6 followers</div>
-                            </div>
-                            <form>
-                                <button type="submit" class="button bg-primary-soft text-primary">Follow</button>
-                            </form>
-                        </div>
-                        <div class="side-list-item">
-                            <a>
-                                <img src="~/wwwroot/images/avatar/user.png" class="side-list-image rounded-full" />
-                            </a>
-                            <div class="flex-1">
-                                <a>
-                                    <h4 class="side-list-title">
-                                        Third User
-                                    </h4>
-                                </a>
-                                <div class="side-list-info">7 followers</div>
-                            </div>
-                            <form>
-                                <button type="submit" class="button bg-primary-soft text-primary">Follow</button>
-                            </form>
-                        </div>
-                    </div>
+                    @Html.Partial("~/Views/Shared/Sidebar/_SuggestedFriends.cshtml")
+                </div>
+                <div class="box p-5 px-6 border1">
+                    @Html.Partial("~/Views/Shared/Sidebar/_TrendsForYou.cshtml")
                 </div>
             </div>
         </div>
+
     </div>
 </main>
-
-
-<div class="hidden lg:p-20" id="create-story" uk-modal="">
-    <div class="uk-modal-dialog tt relative overflow-hidden mx-auto bg-white p-7 shadow-xl rounded-lg md:w-[520px] w-full">
-
-        <div class="text-center py-3 border-b -m-7 mb-0 dark:border-slate-700">
-            <h2 style="color:#03045e">Create Story</h2>
-            <button type="button" class="button__ico absolute top-0 right-0 m-2.5 uk-modal-close">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-
-        <div class="space-y-5 mt-7">
-            <form asp-controller="Stories" asp-action="CreateStory" enctype="multipart/form-data">
-                <div>
-                    <div class="w-full h-72 relative border1 rounded-lg overflow-hidden bg-[url('../images/ad_pattern.png')] bg-repeat">
-                        <label class="flex flex-col justify-center items-center absolute -translate-x-1/2 left-1/2 bottom-0 z-10 w-full pb-6 pt-10 cursor-pointer bg-gradient-to-t from-gray-700/60">
-                            <input id="storyUpload"
-                                   name="image"
-                                   type="file"
-                                   accept="image/png, image/jpeg" hidden />
-
-                            <ion-icon name="image" class="text-3xl text-teal-600"></ion-icon>
-                            <span id="storyUploadBtn" class="text-white mt-2">Browse to Upload image</span>
-
-                        </label>
-                        <img id="storyPreview" />
-                    </div>
-                </div>
-                <div class="flex justify-between items-center">
-                    <div class="flex items-start gap-2">
-                        <ion-icon name="time-outline" class="text-3xl text-teal-600 rounded-full bg-blue-50"></ion-icon>
-                        <p class="text-sm text-gray-500 font-medium">Your story will be available <br /> for <span class="text-gray-800">24 Hours</span></p>
-                    </div>
-                    <button type="submit" class="button bg-blue-500 text-white px-8">Create</button>
-                </div>
-            </form>
-        </div>
-
-    </div>
-</div>
-<!--// Create Status Modal -->
-
-
-
-
-
-<script>
-    document.getElementById('storyUploadBtn').addEventListener('click', () => {
-        document.getElementById('storyUpload').click();
-    });
-
-    document.getElementById('storyUpload').addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        const storyPreview = document.getElementById('storyPreview');
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                storyPreview.src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        } else {
-            storyPreview.src = "";
-        }
-    });
-</script>
-
 @using MeeCon.Domain.Model.Home
+@Html.Partial("~/Views/Shared/Modals/_CreateStory.cshtml")
 
-@Html.Partial("~/Views/Shared/Modals/_CreateStatus.cshtml",new PostVM())
+@Html.Partial("~/Views/Shared/Modals/_CreateStatus.cshtml", new PostVM())

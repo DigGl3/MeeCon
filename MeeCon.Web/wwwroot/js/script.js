@@ -9,49 +9,75 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 localStorage.theme = 'light'
 
 // Whenever the user explicitly chooses dark mode
-localStorage.theme = 'dark'
+localStorage.theme = 'light'
 
 // Whenever the user explicitly chooses to respect the OS preference
 localStorage.removeItem('theme')
 
 
 
-// add post upload image 
-document.getElementById('addPostUrl').addEventListener('change', function(){
-if (this.files[0] ) {
-    var picture = new FileReader();
-    picture.readAsDataURL(this.files[0]);
-    picture.addEventListener('load', function(event) {
-    document.getElementById('addPostImage').setAttribute('src', event.target.result);
-    document.getElementById('addPostImage').style.display = 'block';
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    var fileInput = document.getElementById('addPostUrl');
+    var imagePreview = document.getElementById('addPostImage');
+
+    if (fileInput && imagePreview) {
+        fileInput.addEventListener('change', function () {
+            if (this.files[0]) {
+                var picture = new FileReader();
+                picture.readAsDataURL(this.files[0]);
+                picture.addEventListener('load', function (event) {
+                    imagePreview.setAttribute('src', event.target.result);
+                    imagePreview.style.display = 'block';
+                });
+            }
+        });
     }
 });
 
 
+
 // Create Status upload image 
-document.getElementById('createStatusUrl').addEventListener('change', function(){
-if (this.files[0] ) {
-    var picture = new FileReader();
-    picture.readAsDataURL(this.files[0]);
-    picture.addEventListener('load', function(event) {
-    document.getElementById('createStatusImage').setAttribute('src', event.target.result);
-    document.getElementById('createStatusImage').style.display = 'block';
-    });
-}
+document.addEventListener("DOMContentLoaded", function () {
+    var fileInput = document.getElementById('createStatusUrl');
+    var imagePreview = document.getElementById('createStatusImage');
+
+    if (fileInput && imagePreview) {
+        fileInput.addEventListener('change', function () {
+            if (this.files[0]) {
+                var picture = new FileReader();
+                picture.readAsDataURL(this.files[0]);
+                picture.addEventListener('load', function (event) {
+                    imagePreview.setAttribute('src', event.target.result);
+                    imagePreview.style.display = 'block';
+                });
+            }
+        });
+    } else {
+        console.warn('Elementele createStatusUrl sau createStatusImage nu exist? în DOM.');
+    }
 });
 
 
+
 // create product upload image
-document.getElementById('createProductUrl').addEventListener('change', function(){
-if (this.files[0] ) {
-    var picture = new FileReader();
-    picture.readAsDataURL(this.files[0]);
-    picture.addEventListener('load', function(event) {
-    document.getElementById('createProductImage').setAttribute('src', event.target.result);
-    document.getElementById('createProductImage').style.display = 'block';
-    });
-}
+document.addEventListener("DOMContentLoaded", function () {
+    var fileInput = document.getElementById('createProductUrl');
+    var imagePreview = document.getElementById('createProductImage');
+
+    if (fileInput && imagePreview) {
+        fileInput.addEventListener('change', function () {
+            if (this.files[0]) {
+                var picture = new FileReader();
+                picture.readAsDataURL(this.files[0]);
+                picture.addEventListener('load', function (event) {
+                    imagePreview.setAttribute('src', event.target.result);
+                    imagePreview.style.display = 'block';
+                });
+            }
+        });
+    } else {
+        console.warn('Elementele createProductUrl sau createProductImage nu exist? în DOM.');
+    }
 });
 
 
