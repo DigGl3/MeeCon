@@ -1,24 +1,48 @@
-﻿using MeeCon.BusinessLogic.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MeeCon.Domain.Model.Home;
+using MeeCon.Domain.Model.User;
+using MeeCon.Infrastructure.Repository;
+using MeeCon.Web.Models;
 
 namespace MeeCon.Web.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: Admin
-        private readonly IAdminService _adminService;
-        //public AdminController(IAdminService adminService)
-        //{
-        //    _adminService = adminService;
-        //}
+        private readonly IUserRepository _userRepository;
+        private readonly IPostRepository _postRepository;
 
-        public ActionResult Index()
+        public AdminController(IUserRepository userRepository, IPostRepository postRepository)
         {
-            return View();
+            _userRepository = userRepository;
+            _postRepository = postRepository;
+        }
+
+        public IActionResult Index()
+        {
+            var users = _userRepository.GetAllUsers();
+            var posts = _postRepository.GetAllPosts();
+            
+            var viewModel = new AdminDashboardViewModel
+            {
+                Users = users,
+                Posts = posts
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteUser(int userId)
+        {
+            _userRepository.DeleteUser(userId);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult DeletePost(int postId)
+        {
+            _postRepository.DeletePost(postId);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
