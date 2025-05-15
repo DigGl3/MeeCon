@@ -75,12 +75,24 @@
                             </div>
                         </a>
                         <hr />
-                        <a>
-                            <div class="flex items-center gap-2.5 hover:bg-secondery p-2 px-2.5 rounded-md">
-                                <ion-icon name="exit-outline" class="text-lg"></ion-icon> Log Out
+                        @if (Session["UserId"] != null)
+                        {
+                            <a href="@Url.Action("Logout", "Auth")">
+                                <div class="flex items-center gap-2.5 hover:bg-secondary p-2 px-2.5 rounded-md cursor-pointer">
+                                    <ion-icon name="exit-outline" class="text-lg"></ion-icon> Log Out
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login", "Auth")">
+                                <div class="flex items-center gap-2.5 hover:bg-secondary p-2 px-2.5 rounded-md cursor-pointer">
+                                    <ion-icon name="log-in-outline" class="text-lg"></ion-icon> Log In
+                                </div>
+                            </a>
+                        }
 
-                            </div>
-                        </a>
+
                     </nav>
                 </div>
             </div>
