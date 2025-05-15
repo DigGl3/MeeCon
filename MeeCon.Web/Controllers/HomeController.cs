@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using MeeCon.BusinessLogic;
 using System.Data.Entity;
-using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using MeeCon.Web.Models;
@@ -42,9 +40,10 @@ namespace MeeConPjnw.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(PostVM post)
+        [ValidateAntiForgeryToken]
+        public ActionResult  CreatePost(PostVM post)
         {
-            int loggedInUser = 1;
+            int loggedInUser = 1011;
             var newPost = new Post
             {
                 Content = post.Content,
@@ -56,9 +55,9 @@ namespace MeeConPjnw.Controllers
             };
 
             _context.Posts.Add(newPost);
-            await _context.SaveChangesAsync(); 
+             _context.SaveChangesAsync(); 
 
-            return (IActionResult)RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
 
