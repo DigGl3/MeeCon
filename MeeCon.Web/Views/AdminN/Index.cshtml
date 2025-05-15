@@ -2,10 +2,13 @@
     ViewBag.Title = "Admin";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section SideBar {
+    @Html.Partial("~/Views/Shared/Navigation/_SideBar.cshtml")
+}
 
 @model MeeCon.Web.Models.AdminDashboardViewModel
 
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 pl-64">
     <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
 
     <!-- Users Section -->
@@ -33,9 +36,12 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="userId" value="@user.UserId" />
-                                    <button type="submit">Delete user</button>
+                                    <button type="submit"
+                                            onclick="return confirm('Ești sigur că vrei să ștergi acest user?');"
+                                            class="text-red-600 hover:text-red-800">
+                                        Delete user
+                                    </button>
                                 }
-
                             </td>
                         </tr>
                     }
@@ -71,9 +77,12 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="postId" value="@post.PostId" />
-                                    <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                                    <button type="submit"
+                                            onclick="return confirm('Ești sigur că vrei să ștergi această postare?');"
+                                            class="text-red-600 hover:text-red-800">
+                                        Delete
+                                    </button>
                                 }
-
                             </td>
                         </tr>
                     }
