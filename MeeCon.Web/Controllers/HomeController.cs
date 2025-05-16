@@ -29,6 +29,7 @@ namespace MeeConPjnw.Controllers
             var allPosts = await _context.Posts
                 .Include(n => n.User)
                 .Include(n => n.Likes)
+                .Include(n => n.Comments.Select(p => p.User))
                 .OrderByDescending(n => n.DateCreated)
                 .ToListAsync();
 
@@ -125,6 +126,19 @@ namespace MeeConPjnw.Controllers
             };
             _context.Comments.Add(newComment);
             await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<ActionResult> RemovePostComment(RemoveCommentVM removeCommentVM)
+        {
+            var commentDb = await _context.Comments.FirstOrDefaultAsync(c => c.Id == removeCommentVM.CommentId);
+
+            if (commentDb != null)
+            {
+                _context.Comments.Remove(commentDb);
+                await _context.SaveChangesAsync();
+            }
 
             return RedirectToAction("Index");
         }

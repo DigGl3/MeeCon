@@ -97,7 +97,7 @@
             <a class="button-icon">
                 <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
             </a>
-            <a href="#">5</a>
+            <a href="#">@Model.Comments.Count</a>
         </div>
 
         <div class="ml-auto"></div>
@@ -112,7 +112,6 @@
     @* Add comment section *@
     <div>
         <div class="p-2.5 border-t border-gray-100 font-normal space-y-3 relative">
-
             @foreach (var comment in Model.Comments.OrderByDescending(n => n.DateCreated).Take(3))
             {
                 TimeSpan commentTimeSpanSincePosted = DateTime.UtcNow.Subtract(comment.DateCreated);
@@ -127,7 +126,7 @@
 
                 <div class="flex items-start gap-3 relative">
                     <a>
-                        <img src="@(comment.User.ProfileImage ?? Url.Content("~/images/avatar/user.png"))" class="w-6 h-6 mt-1 rounded-full" />
+                        <img src="@(Url.Content(comment.User.ProfileImage ?? "~/images/avatar/user.png"))" class="w-6 h-6 mt-1 rounded-full" />
                     </a>
                     <div class="flex-1">
                         <div class="flex justify-between">
@@ -136,14 +135,24 @@
                             </a>
                             <small>@commentDisplayTime</small>
                         </div>
-                        <p class="mt-0.5">
-                            @comment.Content
-                        </p>
+                        <div class="flex items-center justify-between">
+                            <p class="mt-0.5">
+                                @comment.Content
+                            </p>
+
+                            @using (Html.BeginForm("RemovePostComment", "Home", FormMethod.Post, new { @class = "inline" }))
+                            {
+                                @Html.Hidden("commentId", comment.Id)
+                                <button type="submit" class="text-red-500 text-xs ml-2" title="Remove post comment">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </button>
+                            }
+                        </div>
                     </div>
                 </div>
             }
 
-            @if (Model.Comments.Count > 3)
+            @if (Model.Comments.Count >= 3)
             {
                 <div class="p-1.5">
                     @using (Html.BeginForm("ShowAllComments", "Home", FormMethod.Get, new { @class = "inline" }))
@@ -153,12 +162,11 @@
                     }
                 </div>
             }
-
         </div>
 
-        @using (Html.BeginForm("AddPostComment", "Home", FormMethod.Post, new { @class = "flex items-center gap-1 sm:px-4 sm:py-3 p-2.5 border-t border-gray-100" }))
+        @using (Html.BeginForm("AddPostComment", "Home", FormMethod.Post, new { @class = "sm:px-4 sm:py-3 p-2.5 border-t border-gray-100 flex items-center gap-1" }))
         {
-            <img src="/wwwroot/images/avatar/user.png" class="w-6 h-6 rounded-full" />
+            <img src="~/images/avatar/user.png" class="w-6 h-6 rounded-full" />
 
             @Html.Hidden("postId", Model.PostId)
 
@@ -170,6 +178,9 @@
 
             <button type="submit" class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
         }
+        
     </div>
+
+
 
 </div>
