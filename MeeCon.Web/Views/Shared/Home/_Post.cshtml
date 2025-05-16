@@ -11,6 +11,9 @@
         var t when t.TotalMinutes >= 1 => $"{(int)t.TotalMinutes}m ago",
         _ => "Just now"
     };
+
+    bool isFavorited = Model.Favorites.Any(n => n.UserId == 1011);
+    bool isLiked = Model.Likes.Any(n => n.UserId == 1011);
 }
 
 <div class="bg-white rounded-xl shadow-sm text-sm font-medium border1">
@@ -74,40 +77,51 @@
 
 
     @* Icons *@
-    <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
+<div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
 
-        <div class="flex items-center gap-2.5">
-            @using (Html.BeginForm("TogglePostLike", "Home", FormMethod.Post, new { @class = "inline-flex" }))
-            {
-                @Html.Hidden("postId", Model.PostId)
+    <div class="flex items-center gap-2.5">
+        @using (Html.BeginForm("TogglePostLike", "Home", FormMethod.Post, new { @class = "inline-flex" }))
+        {
+            @Html.Hidden("postId", Model.PostId)
 
-                <button type="submit"
-                        class="button-icon @(Model.Likes.Any(n => n.UserId == 1011) ? "text-red-500 bg-red-100" : "")">
-                    <ion-icon class="text-lg"
-                              name="@(Model.Likes.Any(n => n.UserId == 1011) ? "heart" : "heart-outline")"></ion-icon>
-                </button>
-            }
+            <button type="submit"
+                    class="button-icon @(isLiked ? "text-red-500 bg-red-100" : "")">
+                <ion-icon class="text-lg"
+                          name="@(isLiked ? "heart" : "heart-outline")"></ion-icon>
+            </button>
+        }
 
-            <a href="#">@Model.Likes.Count</a>
-        </div>
-
-
-
-        <div class="flex items-center gap-3">
-            <a class="button-icon">
-                <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
-            </a>
-            <a href="#">@Model.Comments.Count</a>
-        </div>
-
-        <div class="ml-auto"></div>
-
-        <div>
-            <a class="button-icon ml-auto">
-                <ion-icon class="text-lg" name="bookmark-outline"></ion-icon>
-            </a>
-        </div>
+        <a href="#">@Model.Likes.Count</a>
     </div>
+
+
+
+    <div class="flex items-center gap-3">
+        <a class="button-icon">
+            <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
+        </a>
+        <a href="#">@Model.Comments.Count</a>
+    </div>
+
+    <div class="ml-auto"></div>
+
+    <div class="flex items-center gap-2">
+        @using (Html.BeginForm("TogglePostFavorite", "Home", FormMethod.Post, new { @class = "ml-auto" }))
+        {
+            <input type="hidden" name="postId" value="@Model.PostId" />
+            <button type="submit" class="button-icon @(isFavorited ? "text-orange-500 bt-orange-100" : "")">
+                <ion-icon class="text-lg" name="@(isFavorited ? "bookmark" : "bookmark-outline")"></ion-icon>
+            </button>
+        }
+
+        @if (Model.Favorites.Count > 0)
+        {
+            <a href="#">@Model.Favorites.Count</a>
+        }
+    </div>
+
+
+</div>
 
     @* Add comment section *@
     <div>

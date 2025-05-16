@@ -18,6 +18,7 @@ namespace MeeCon.BusinessLogic
         public DbSet<Like> Likes { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Favorite>  Favorites { get; set; }
 
         public DataContext() : base("name=MeeConAppDB")
         {
@@ -51,26 +52,43 @@ namespace MeeCon.BusinessLogic
                 .HasRequired(l => l.Post)
                 .WithMany(p => p.Likes)
                 .HasForeignKey(l => l.PostId)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Like>()
                 .HasRequired(l => l.User)
                 .WithMany(u => u.Likes)
                 .HasForeignKey(l => l.UserId)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(true);
 
             //Comment 
             modelBuilder.Entity<Comment>()
                 .HasRequired(l => l.Post)
                 .WithMany(p => p.Comments)
                 .HasForeignKey(l => l.PostId)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Comment>()
                 .HasRequired(l => l.User)
                 .WithMany(u => u.Comments)
                 .HasForeignKey(l => l.UserId)
-                .WillCascadeOnDelete();
+                .WillCascadeOnDelete(true);
+            //Favorite 
+            modelBuilder.Entity<Favorite>()
+                .HasKey(f => new { f.PostId, f.UserId });
+
+            modelBuilder.Entity<Favorite>()
+                .HasRequired(f => f.Post)
+                .WithMany(p => p.Favorites)
+                .HasForeignKey(f => f.PostId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Favorite>()
+                .HasRequired(f => f.User)
+                .WithMany(u => u.Favorites)
+                .HasForeignKey(f => f.UserId)
+                .WillCascadeOnDelete(true);
+
+
 
             base.OnModelCreating(modelBuilder);
 

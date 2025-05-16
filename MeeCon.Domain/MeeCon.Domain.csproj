@@ -73,7 +73,9 @@
     <Compile Include="Data\AppDBContext.cs" />
     <Compile Include="Enum\ULoginData.cs" />
     <Compile Include="Model\Comment.cs" />
+    <Compile Include="Model\Favorite.cs" />
     <Compile Include="Model\Home\PostCommentVM.cs" />
+    <Compile Include="Model\Home\PostFavoriteVM.cs" />
     <Compile Include="Model\Home\PostLikeVM.cs" />
     <Compile Include="Model\Home\PostVM.cs" />
     <Compile Include="Model\Home\RemoveCommentVM.cs" />
