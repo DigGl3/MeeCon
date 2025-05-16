@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     } else {
-        console.warn('Elementele createStatusUrl sau createStatusImage nu exist? în DOM.');
+        console.warn('Elementele createStatusUrl sau createStatusImage nu exist? in DOM.');
     }
 });
 
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     } else {
-        console.warn('Elementele createProductUrl sau createProductImage nu exist? în DOM.');
+        console.warn('Elementele createProductUrl sau createProductImage nu exist? in DOM.');
     }
 });
 
