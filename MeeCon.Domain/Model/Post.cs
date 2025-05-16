@@ -1,4 +1,5 @@
-﻿using MeeCon.Domain.Model.User;
+﻿using MeeCon.Domain.Model;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,5 +25,7 @@ namespace MeeCon.Web.Models
 
         //Navigation property
         public UDbModel User { get; set; }
+        public ICollection<Like> Likes { get; set; } = new List<Like>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

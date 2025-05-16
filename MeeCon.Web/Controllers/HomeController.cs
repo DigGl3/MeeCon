@@ -7,59 +7,127 @@ using System.Threading.Tasks;
 using MeeCon.Web.Models;
 using MeeCon.Domain.Model.Home;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using MeeCon.Web.Controllers.Data;
+using Microsoft.Build.Framework;
+using Microsoft.Extensions.Logging;
+using MeeCon.Domain.Model;
 
 namespace MeeConPjnw.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
         private readonly DataContext _context;
 
-        public HomeController(DataContext context)
-        {
-            _context = context;
-        }
         public HomeController()
         {
-            _context = new DataContext();
+            _context = new DataContext(); ;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var allPost = _context.Posts
-                .Include(p => p.User)
-                .ToList();
+            var allPosts = await _context.Posts
+                .Include(n => n.User)
+                .Include(n => n.Likes)
+                .OrderByDescending(n => n.DateCreated)
+                .ToListAsync();
 
-            return View(allPost);
-
+            return View(allPosts);
         }
-        public ActionResult About()
-        {
-            return View();
-        }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult  CreatePost(PostVM post)
+        public async Task<ActionResult> CreatePost(PostVM post)
         {
+            //Get the logged in user
             int loggedInUser = 1011;
+
+            //Create a new post
             var newPost = new Post
             {
                 Content = post.Content,
                 DateCreated = DateTime.UtcNow,
                 DateUpdate = DateTime.UtcNow,
-                UserId = loggedInUser,
                 ImageUrl = "",
-                NrOfReports = 0
+                NrOfReports = 0,
+                UserId = loggedInUser
             };
 
-            _context.Posts.Add(newPost);
-             _context.SaveChangesAsync(); 
+            //Check and save the image
+            if (post.Image != null && post.Image.Length > 0)
+            {
+                string rootFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                if (post.Image.ContentType.Contains("image"))
+                {
+                    string rootFolderPathImages = Path.Combine(rootFolderPath, "images/uploaded");
+                    Directory.CreateDirectory(rootFolderPathImages);
 
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(post.Image.FileName);
+                    string filePath = Path.Combine(rootFolderPathImages, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                        await post.Image.CopyToAsync(stream);
+
+                    //Set the URL to the newPost object
+                    newPost.ImageUrl = "/images/uploaded/" + fileName;
+                }
+            }
+
+            _context.Posts.Add(newPost);
+            //Add the post to the database
+            // await _context.Posts.Add(newPost);
+            await _context.SaveChangesAsync();
+
+            //Redirect to the index page
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public async Task<ActionResult> TogglePostLike(PostLikeVM postLikeVM)
+        {
+            int loggedInUser = 1011;
+
+            //Check if the user has already liked the post
+            var existingLike = await _context.Likes
+                .FirstOrDefaultAsync(n => n.UserId == loggedInUser && n.PostId == postLikeVM.PostId);
+
+            if (existingLike != null)
+            {
+                _context.Likes.Remove(existingLike);
+                await _context.SaveChangesAsync();
+            } else
+            {
+                //Add the like to the database
+                var newLike = new Like
+                {
+                    PostId = postLikeVM.PostId,
+                    UserId = loggedInUser
+                };
+                _context.Likes.Add(newLike);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddPostComment(PostCommentVM postCommentVM)
+        {
+            int loggedInUserId = 1011;
+
+            //Creat a post object
+            var newComment = new Comment()
+            {
+                UserId = loggedInUserId,
+                PostId = postCommentVM.PostId,
+                Content = postCommentVM.Content,
+                DateCreated = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow
+            };
+            _context.Comments.Add(newComment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
 
     }
 }

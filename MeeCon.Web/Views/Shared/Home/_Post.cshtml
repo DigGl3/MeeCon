@@ -18,7 +18,7 @@
     @* Post heading *@
     <div class="flex gap-3 sm:p-4 p-2.5 text-sm font-medium">
         <a>
-            <img src="@(Model.User.ProfileImage ?? "~/images/avatar/user.png")" class="w-9 h-9 rounded-full" />
+            <img src="@(Model.User.ProfileImage ?? "wwwroot/images/avatar/user.png")" class="w-9 h-9 rounded-full" />
         </a>
         <div class="flex-1">
             <a>
@@ -77,11 +77,21 @@
     <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
 
         <div class="flex items-center gap-2.5">
-            <a class="button-icon text-red-500 bg-red-100">
-                <ion-icon class="text-lg" name="heart"></ion-icon>
-            </a>
-            <a href="#">24</a>
+            @using (Html.BeginForm("TogglePostLike", "Home", FormMethod.Post, new { @class = "inline-flex" }))
+            {
+                @Html.Hidden("postId", Model.PostId)
+
+                <button type="submit"
+                        class="button-icon @(Model.Likes.Any(n => n.UserId == 1011) ? "text-red-500 bg-red-100" : "")">
+                    <ion-icon class="text-lg"
+                              name="@(Model.Likes.Any(n => n.UserId == 1011) ? "heart" : "heart-outline")"></ion-icon>
+                </button>
+            }
+
+            <a href="#">@Model.Likes.Count</a>
         </div>
+
+
 
         <div class="flex items-center gap-3">
             <a class="button-icon">
@@ -101,15 +111,65 @@
 
     @* Add comment section *@
     <div>
-        <div class="sm:px-4 sm:py-3 p-2.5 border-t border-gray-100 flex items-center gap-1">
-            <img src="~/images/avatar/user.png" class="w-6 h-6 rounded-full" />
+        <div class="p-2.5 border-t border-gray-100 font-normal space-y-3 relative">
 
-            <div class="flex-1 relative overflow-hidden h-10">
-                <textarea placeholder="Add Comment...." rows="1" class="w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
-            </div>
+            @foreach (var comment in Model.Comments.OrderByDescending(n => n.DateCreated).Take(3))
+            {
+                TimeSpan commentTimeSpanSincePosted = DateTime.UtcNow.Subtract(comment.DateCreated);
 
-            <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
+                string commentDisplayTime = commentTimeSpanSincePosted switch
+                {
+                    var t when t.TotalDays >= 1 => $"{(int)t.TotalDays}d ago",
+                    var t when t.TotalHours >= 1 => $"{(int)t.TotalHours}h ago",
+                    var t when t.TotalMinutes >= 1 => $"{(int)t.TotalMinutes}m ago",
+                    _ => "Just now"
+                };
+
+                <div class="flex items-start gap-3 relative">
+                    <a>
+                        <img src="@(comment.User.ProfileImage ?? Url.Content("~/images/avatar/user.png"))" class="w-6 h-6 mt-1 rounded-full" />
+                    </a>
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <a class="text-black font-medium inline-block flex-grow">
+                                @comment.User.Username
+                            </a>
+                            <small>@commentDisplayTime</small>
+                        </div>
+                        <p class="mt-0.5">
+                            @comment.Content
+                        </p>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Comments.Count > 3)
+            {
+                <div class="p-1.5">
+                    @using (Html.BeginForm("ShowAllComments", "Home", FormMethod.Get, new { @class = "inline" }))
+                    {
+                        @Html.Hidden("postId", Model.PostId)
+                        <button type="submit" class="text-blue-500 underline">Show all comments</button>
+                    }
+                </div>
+            }
 
         </div>
+
+        @using (Html.BeginForm("AddPostComment", "Home", FormMethod.Post, new { @class = "flex items-center gap-1 sm:px-4 sm:py-3 p-2.5 border-t border-gray-100" }))
+        {
+            <img src="/wwwroot/images/avatar/user.png" class="w-6 h-6 rounded-full" />
+
+            @Html.Hidden("postId", Model.PostId)
+
+            <div class="flex-1 relative overflow-hidden h-10">
+                <textarea name="content" placeholder="Add Comment...."
+                          rows="1"
+                          class="w-full resize-none bg-transparent px-4 py-2 focus:border-transparent focus:ring-transparent"></textarea>
+            </div>
+
+            <button type="submit" class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
+        }
     </div>
+
 </div>

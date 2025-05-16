@@ -62,10 +62,20 @@
     <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.5\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=9.0.0.5, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.9.0.5\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=9.0.0.5, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.9.0.5\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=8.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.8.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
@@ -76,6 +86,9 @@
       <HintPath>..\packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.9.0.5\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -89,8 +102,8 @@
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -144,40 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="images\feed-1.jpg" />
-    <Content Include="images\feed-2.jpg" />
-    <Content Include="images\feed-3.jpg" />
-    <Content Include="images\feed-4.jpg" />
-    <Content Include="images\feed-5.jpg" />
-    <Content Include="images\feed-6.jpg" />
-    <Content Include="images\feed-7.jpg" />
-    <Content Include="images\profile-1.jpg" />
-    <Content Include="images\profile-10.jpg" />
-    <Content Include="images\profile-11.jpg" />
-    <Content Include="images\profile-12.jpg" />
-    <Content Include="images\profile-13.jpg" />
-    <Content Include="images\profile-14.jpg" />
-    <Content Include="images\profile-15.jpg" />
-    <Content Include="images\profile-16.jpg" />
-    <Content Include="images\profile-17.jpg" />
-    <Content Include="images\profile-18.jpg" />
-    <Content Include="images\profile-19.jpg" />
-    <Content Include="images\profile-2.jpg" />
-    <Content Include="images\profile-20.jpg" />
-    <Content Include="images\profile-3.jpg" />
-    <Content Include="images\profile-4.jpg" />
-    <Content Include="images\profile-5.jpg" />
-    <Content Include="images\profile-6.jpg" />
-    <Content Include="images\profile-7.jpg" />
-    <Content Include="images\profile-8.jpg" />
-    <Content Include="images\profile-9.jpg" />
-    <Content Include="images\social logo.png" />
-    <Content Include="images\story-1.jpg" />
-    <Content Include="images\story-2.jpg" />
-    <Content Include="images\story-3.jpg" />
-    <Content Include="images\story-4.jpg" />
-    <Content Include="images\story-5.jpg" />
-    <Content Include="images\story-6.jpg" />
     <Content Include="wwwroot\css\_Layoutcs.css" />
     <Content Include="Web.config" />
     <Content Include="wwwroot\css\site.css" />
@@ -304,6 +283,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Logic\" />
+    <Folder Include="wwwroot\images\uploaded\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MeeCon.BusinessLogic\MeeCon.BusinessLogic.csproj">

@@ -19,29 +19,51 @@
             <div class="space-y-5 mt-3 p-2">
                 <textarea class="w-full !text-black placeholder:!text-black !bg-white !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl"
                           name="Content"
-                          rows="2"
                           placeholder="What do you have in mind?"></textarea>
-                @Html.ValidationMessage("Content", "", new { @class = "text-red-500" })
+                @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-red-500" })
             </div>
 
             <div class="flex items-center gap-2 text-sm py-2 px-4 font-medium flex-wrap">
-                <input id="imageUpload" type="file" name="uploadedContent" accept="image/png, image/jpeg" style="display:none;" />
+                <input id="imageUpload" type="file" class="hidden" name="Image" accept=".png, .jpg, .jpeg"
+ />
 
-                <div id="imagePreviewContainer" style="display:none;">
-                    <img id="imagePreview" src="#" alt="Image preview" class="w-full h-auto rounded" />
+                <div id="imagePreviewContainer" class="hidden">
+                    <img id="imagePreview" src="#" class="w-full h-auto rounded" />
                 </div>
 
-                <label for="imageUpload" class="flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100 cursor-pointer">
+                <button type="button" id="imageUploadBtn" class="flex items-center gap-1.5 bg-sky-50 text-sky-600 rounded-full py-1 px-2 border-2 border-sky-100">
                     <ion-icon name="image" class="text-base"></ion-icon> Image
-                </label>
+                </button>
             </div>
 
             <div class="p-5 flex justify-between items-center">
                 <div class="flex items-center gap-2">
-                    <button type="submit" class="button bg-blue-500 text-white py-2 px-12 text-[14px]">Create</button>
+                    <button type="submit" class="button bg-blue-500 text-white py-2 px-12 text-[14px]"> Create </button>
                 </div>
             </div>
         }
-
     </div>
 </div>
+
+<script>
+    document.getElementById('imageUploadBtn').addEventListener('click', () => {
+        document.getElementById('imageUpload').click();
+    });
+
+    document.getElementById('imageUpload').addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        const imagePreview = document.getElementById('imagePreview');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
+        if (file) {
+            const reader = new FileReader();
+            imagePreviewContainer.classList.remove('hidden');
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        } else {
+            imagePreviewContainer.classList.add('hidden');
+        }
+    });
+</script>
