@@ -30,6 +30,7 @@ namespace MeeConPjnw.Controllers
                 .Include(n => n.User)
                 .Include(n => n.Likes)
                 .Include(n => n.Comments.Select(p => p.User))
+                .Include(n => n.Favorites)
                 .OrderByDescending(n => n.DateCreated)
                 .ToListAsync();
 
@@ -143,5 +144,35 @@ namespace MeeConPjnw.Controllers
             return RedirectToAction("Index");
         }
 
+
+        [HttpPost]
+        public async Task<ActionResult> TogglePostFavorite(PostFavoriteVM postFavoriteVM)
+        {
+            int loggedInUserId = 1011;
+
+            //check if user has already favorited the post
+            var favorite = await _context.Favorites
+                .Where(l => l.PostId == postFavoriteVM.PostId && l.UserId == loggedInUserId)
+                .FirstOrDefaultAsync();
+
+            if (favorite != null)
+            {
+                _context.Favorites.Remove(favorite);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                var newFavorite = new Favorite()
+                {
+                    DateCreated = DateTime.Now,
+                    PostId = postFavoriteVM.PostId,
+                    UserId = loggedInUserId
+                };
+                 _context.Favorites.Add(newFavorite);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
