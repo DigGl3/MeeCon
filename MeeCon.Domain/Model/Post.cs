@@ -19,6 +19,7 @@ namespace MeeCon.Web.Models
         public int NrOfReports { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdate { get; set; }
+        public bool IsPrivat {  get; set; }
 
         // [ForeignKey("User")]
         public int UserId { get; set; }

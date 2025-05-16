@@ -26,7 +26,9 @@ namespace MeeConPjnw.Controllers
 
         public async Task<ActionResult> Index()
         {
+            int loggeId = 1011;
             var allPosts = await _context.Posts
+                .Where( n=> !n.IsPrivat || n.UserId == loggeId )
                 .Include(n => n.User)
                 .Include(n => n.Likes)
                 .Include(n => n.Comments.Select(p => p.User))
@@ -169,6 +171,24 @@ namespace MeeConPjnw.Controllers
                     UserId = loggedInUserId
                 };
                  _context.Favorites.Add(newFavorite);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public async Task<ActionResult> TogglePostVisibility(PostVisibilityVM postVisibilityVM)
+        {
+            int loggedInUserId = 1011;
+
+            //get post by id and loggedin user id
+            var post = await _context.Posts
+                .FirstOrDefaultAsync(l => l.PostId == postVisibilityVM.PostId && l.UserId == loggedInUserId);
+
+            if (post != null)
+            {
+                post.IsPrivat = !post.IsPrivat;
+                _context.Entry(post).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
 
