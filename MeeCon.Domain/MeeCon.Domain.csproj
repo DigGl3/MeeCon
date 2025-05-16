@@ -76,6 +76,7 @@
     <Compile Include="Model\Home\PostCommentVM.cs" />
     <Compile Include="Model\Home\PostLikeVM.cs" />
     <Compile Include="Model\Home\PostVM.cs" />
+    <Compile Include="Model\Home\RemoveCommentVM.cs" />
     <Compile Include="Model\Like.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\User\UDbModel.cs" />
