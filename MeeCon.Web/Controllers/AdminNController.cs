@@ -3,16 +3,17 @@ using MeeCon.Web.Models;
 using System.Web.Mvc;
 using MeeCon.BusinessLogic;
 using System.Linq;
+using MeeCon.BusinessLogic.Interfaces;
 
 namespace MeeCon.Web.Controllers
 {
     public class AdminNController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IAdminService _adminService;
 
-        public AdminNController(DataContext context)
+        public AdminNController(IAdminService adminService)
         {
-            _context = context;
+            _adminService = adminService;
         }
 
         public ActionResult Index()
@@ -23,32 +24,22 @@ namespace MeeCon.Web.Controllers
                 return RedirectToAction("Login", "Auth");
             }
 
-            var users = _context.Users.ToList();
-            var posts = _context.Posts.ToList();
-
             var viewModel = new AdminDashboardViewModel
             {
-                Users = users,
-                Posts = posts
+                Users = _adminService.GetAllUsers(),
+                Posts = _adminService.GetAllPosts()
             };
 
             return View(viewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteUser(int userId)
         {
-            if (userId == 1011)
-            {
-                return RedirectToAction("Index");
-            }
-            var user = _context.Users.Find(userId);
-            if (user != null)
-            {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
-            }
+            if (userId == 1011) return RedirectToAction("Index");
 
+            _adminService.DeleteUser(userId);
             return RedirectToAction(nameof(Index));
         }
 
@@ -56,14 +47,9 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletePost(int postId)
         {
-            var post = _context.Posts.Find(postId);
-            if (post != null)
-            {
-                _context.Posts.Remove(post);
-                _context.SaveChanges();
-            }
-
+            _adminService.DeletePost(postId);
             return RedirectToAction(nameof(Index));
         }
     }
+
 }

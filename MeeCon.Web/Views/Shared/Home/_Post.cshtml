@@ -12,6 +12,7 @@
         _ => "Just now"
     };
 
+    bool isReported = Model.Reports.Any(n => n.UserId == 1011);
     bool isFavorited = Model.Favorites.Any(n => n.UserId == 1011);
     bool isLiked = Model.Likes.Any(n => n.UserId == 1011);
     bool isPrivate = Model.IsPrivat == true && Model.UserId == 1011;
@@ -38,29 +39,35 @@
                 {
                     using (Html.BeginForm("TogglePostVisibility", "Home", FormMethod.Post))
                     {
-                        @Html.Hidden("postId", Model.PostId)
+                        <input type="hidden" name="postId" value="@Model.PostId" />
                         <button type="submit" class="hover:!bg-red-50 icon-link">
                             <ion-icon name="@(isPrivate ? "lock-open-outline" : "lock-closed-outline")"></ion-icon>
                             Set as @(isPrivate ? "public" : "private")
                         </button>
                     }
+
                     <hr />
+
+                    <button type="button" onclick="openPostDeleteConfirmation('@Model.PostId')" class="text-red-400 hover:!bg-red-50 delete-post-btn">
+                        <ion-icon name="trash-bin-outline"></ion-icon> Delete Post
+                    </button>
                 }
 
 
-                <hr>
-                <form asp-controller="Home" asp-action="Delete">
-                    <input type="hidden" name="postId" />
-                    <button type="submit" class="text-red-400 hover:!bg-red-50 icon-link">
-                        <ion-icon name="trash-bin-outline"></ion-icon>  Delete Post
-                    </button>
-                </form>
-                <form asp-controller="Home" asp-action="Report">
-                    <input type="hidden" name="postId" />
-                    <button type="submit" class="hover:!bg-red-50 icon-link">
-                        <ion-icon class="text-xl shrink-0" name="flag-outline"></ion-icon>  Report
-                    </button>
-                </form>
+
+
+
+
+                @if (!isReported)
+                {
+                    using (Html.BeginForm("AddPostReport", "Home", FormMethod.Post, new { @class = "hover:bg-red-50 icon-link" }))
+                    {
+                        @Html.Hidden("postId", Model.PostId)
+                        <button type="submit" class="hover:!bg-red-50 icon-link">
+                            <ion-icon class="text-xl shrink-0" name="flag-outline"></ion-icon> Report
+                        </button>
+                    }
+                }
             </div>
         </div>
     </div>
@@ -85,51 +92,51 @@
 
 
     @* Icons *@
-<div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
+    <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
 
-    <div class="flex items-center gap-2.5">
-        @using (Html.BeginForm("TogglePostLike", "Home", FormMethod.Post, new { @class = "inline-flex" }))
-        {
-            @Html.Hidden("postId", Model.PostId)
+        <div class="flex items-center gap-2.5">
+            @using (Html.BeginForm("TogglePostLike", "Home", FormMethod.Post, new { @class = "inline-flex" }))
+            {
+                @Html.Hidden("postId", Model.PostId)
 
-            <button type="submit"
-                    class="button-icon @(isLiked ? "text-red-500 bg-red-100" : "")">
-                <ion-icon class="text-lg"
-                          name="@(isLiked ? "heart" : "heart-outline")"></ion-icon>
-            </button>
-        }
+                <button type="submit"
+                        class="button-icon @(isLiked ? "text-red-500 bg-red-100" : "")">
+                    <ion-icon class="text-lg"
+                              name="@(isLiked ? "heart" : "heart-outline")"></ion-icon>
+                </button>
+            }
 
-        <a href="#">@Model.Likes.Count</a>
+            <a href="#">@Model.Likes.Count</a>
+        </div>
+
+
+
+        <div class="flex items-center gap-3">
+            <a class="button-icon">
+                <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
+            </a>
+            <a href="#">@Model.Comments.Count</a>
+        </div>
+
+        <div class="ml-auto"></div>
+
+        <div class="flex items-center gap-2">
+            @using (Html.BeginForm("TogglePostFavorite", "Home", FormMethod.Post, new { @class = "ml-auto" }))
+            {
+                <input type="hidden" name="postId" value="@Model.PostId" />
+                <button type="submit" class="button-icon @(isFavorited ? "text-orange-500 bt-orange-100" : "")">
+                    <ion-icon class="text-lg" name="@(isFavorited ? "bookmark" : "bookmark-outline")"></ion-icon>
+                </button>
+            }
+
+            @if (Model.Favorites.Count > 0)
+            {
+                <a href="#">@Model.Favorites.Count</a>
+            }
+        </div>
+
+
     </div>
-
-
-
-    <div class="flex items-center gap-3">
-        <a class="button-icon">
-            <ion-icon class="text-lg" name="chatbubble-ellipses-outline"></ion-icon>
-        </a>
-        <a href="#">@Model.Comments.Count</a>
-    </div>
-
-    <div class="ml-auto"></div>
-
-    <div class="flex items-center gap-2">
-        @using (Html.BeginForm("TogglePostFavorite", "Home", FormMethod.Post, new { @class = "ml-auto" }))
-        {
-            <input type="hidden" name="postId" value="@Model.PostId" />
-            <button type="submit" class="button-icon @(isFavorited ? "text-orange-500 bt-orange-100" : "")">
-                <ion-icon class="text-lg" name="@(isFavorited ? "bookmark" : "bookmark-outline")"></ion-icon>
-            </button>
-        }
-
-        @if (Model.Favorites.Count > 0)
-        {
-            <a href="#">@Model.Favorites.Count</a>
-        }
-    </div>
-
-
-</div>
 
     @* Add comment section *@
     <div>
@@ -200,9 +207,19 @@
 
             <button type="submit" class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
         }
-        
+
     </div>
 
 
 
 </div>
+@Html.Partial("~/Views/Shared/Home/_PostDeleteConfirmation.cshtml")
+<script>
+    function openPostDeleteConfirmation(postId) {
+
+        console.log('Selected post id - ', postId);
+        UIkit.dropdown('.post-options-dropdown').hide();
+        document.getElementById('postId').value = postId;
+        UIkit.modal('#postDeleteDialog').show();
+    }
+</script>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class User
+public class UDBModel
 {
     public int UserId { get; set; }
     public string Username { get; set; }

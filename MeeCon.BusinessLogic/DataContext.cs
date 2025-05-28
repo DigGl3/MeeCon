@@ -16,6 +16,7 @@ namespace MeeCon.BusinessLogic
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Favorite>  Favorites { get; set; }
@@ -87,6 +88,23 @@ namespace MeeCon.BusinessLogic
                 .WithMany(u => u.Favorites)
                 .HasForeignKey(f => f.UserId)
                 .WillCascadeOnDelete(true);
+
+            //Reports
+            modelBuilder.Entity<Report>()
+                .HasKey(f => new { f.PostId, f.UserId });
+
+            modelBuilder.Entity<Report>()
+                .HasRequired(f => f.Post)
+                .WithMany(p => p.Reports)
+                .HasForeignKey(f => f.PostId)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Report>()
+                .HasRequired(f => f.User)
+                .WithMany(u => u.Reports)
+                .HasForeignKey(f => f.UserId)
+                .WillCascadeOnDelete(true);
+
 
 
 

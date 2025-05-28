@@ -248,6 +248,7 @@
     <Content Include="Views\Shared\SideBar\_SuggestedFriends.cshtml" />
     <Content Include="Views\Shared\SideBar\_TrendsForYou.cshtml" />
     <Content Include="Views\AdminN\Index.cshtml" />
+    <Content Include="Views\Shared\Home\_PostDeleteConfirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

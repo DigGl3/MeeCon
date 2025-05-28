@@ -77,11 +77,13 @@
     <Compile Include="Model\Home\PostCommentVM.cs" />
     <Compile Include="Model\Home\PostFavoriteVM.cs" />
     <Compile Include="Model\Home\PostLikeVM.cs" />
+    <Compile Include="Model\Home\PostReportVM.cs" />
     <Compile Include="Model\Home\PostVisibilityVM.cs" />
     <Compile Include="Model\Home\PostVM.cs" />
     <Compile Include="Model\Home\RemoveCommentVM.cs" />
     <Compile Include="Model\Like.cs" />
     <Compile Include="Model\Post.cs" />
+    <Compile Include="Model\Report.cs" />
     <Compile Include="Model\User\UDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
