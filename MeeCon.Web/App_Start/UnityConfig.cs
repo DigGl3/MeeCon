@@ -1,5 +1,9 @@
+using MeeCon.BusinessLogic;
+using MeeCon.BusinessLogic.Core;
+using MeeCon.BusinessLogic.Interfaces;
+using MeeCon.BusinessLogic.Services;
 using System;
-
+using System.ComponentModel;
 using Unity;
 
 namespace MeeCon.Web
@@ -23,7 +27,6 @@ namespace MeeCon.Web
         /// </summary>
         public static IUnityContainer Container => container.Value;
         #endregion
-
         /// <summary>
         /// Registers the type mappings with the Unity container.
         /// </summary>
@@ -36,6 +39,10 @@ namespace MeeCon.Web
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
+
+            container.RegisterType<DataContext>();
+            container.RegisterType<IPostService, PostService>();
+            container.RegisterType<IAdminService, AdminService>();
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
