@@ -56,6 +56,8 @@
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminService.cs" />
     <Compile Include="Core\GetUserID.cs" />
+    <Compile Include="Core\IPostRepository.cs" />
+    <Compile Include="Core\IUserRepository.cs" />
     <Compile Include="Core\PostService.cs" />
     <Compile Include="Core\UpdateProfilePictureVM.cs" />
     <Compile Include="Core\UserApi.cs" />

@@ -223,8 +223,6 @@
     <Compile Include="Controllers\AdminNController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IPostRepository.cs" />
-    <Compile Include="Controllers\IUserRepository.cs" />
     <Compile Include="Controllers\SettingsPr1Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

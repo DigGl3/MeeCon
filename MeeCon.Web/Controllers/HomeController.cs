@@ -17,7 +17,7 @@ namespace MeeConPjnw.Controllers
 
         public async Task<ActionResult> Index()
         {
-            int loggedInUserId = 1011; // TODO: Obține ID-ul utilizatorului logat din sesiune/autentificare reală
+            int loggedInUserId = 1011;
             var allPosts = await _postService.GetAllVisiblePostsAsync(loggedInUserId);
             return View(allPosts);
         }
