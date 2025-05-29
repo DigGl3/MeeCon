@@ -55,14 +55,19 @@
   <ItemGroup>
     <Compile Include="BusinessLogic.cs" />
     <Compile Include="Core\AdminService.cs" />
+    <Compile Include="Core\GetUserID.cs" />
     <Compile Include="Core\PostService.cs" />
+    <Compile Include="Core\UpdateProfilePictureVM.cs" />
     <Compile Include="Core\UserApi.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="DbInitializer.cs" />
     <Compile Include="DBModel\Seed\UserContext.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
     <Compile Include="Interfaces\IAdminServices.cs" />
     <Compile Include="Interfaces\IAuth.cs" />
+    <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Interfaces\IPostService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

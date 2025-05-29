@@ -8,12 +8,10 @@ using System.Threading.Tasks;
 
 namespace MeeCon.BusinessLogic.Interfaces
 {
-    public interface IAdminServices
+    public interface IUsersService
     {
-        List<UDbModel> GetAllUsers();
-        List<Post> GetAllPosts();
-        void DeleteUser(int userId);
-        void DeletePost(int postId);
+        Task<UDbModel> GetUser(int loggedInUserId);
+        Task UpdateUserProfilePicture(int loggedInUserId, string profilePictureUrl);
+        Task<List<Post>> GetUserPosts(int userId);
     }
-
 }

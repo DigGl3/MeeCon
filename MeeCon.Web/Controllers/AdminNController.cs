@@ -9,11 +9,11 @@ namespace MeeCon.Web.Controllers
 {
     public class AdminNController : Controller
     {
-        private readonly IAdminService _adminService;
+        private readonly IAdminServices _adminService;
 
         public AdminNController(IAdminService adminService)
         {
-            _adminService = adminService;
+            _adminService = (IAdminServices)adminService;
         }
 
         public ActionResult Index()

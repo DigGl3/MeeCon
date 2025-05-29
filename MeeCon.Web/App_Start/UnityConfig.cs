@@ -42,7 +42,6 @@ namespace MeeCon.Web
 
             container.RegisterType<DataContext>();
             container.RegisterType<IPostService, PostService>();
-            container.RegisterType<IAdminService, AdminService>();
             // NOTE: To load from web.config uncomment the line below.
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
