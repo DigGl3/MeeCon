@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeeCon.BusinessLogic.Interfaces;
 
 namespace MeeCon.BusinessLogic.Core
 {
-    public class AdminService : IAdminService
+    public class AdminService : IAdminServices
     {
         private readonly DataContext _context;
 

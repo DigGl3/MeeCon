@@ -74,6 +74,8 @@
     <Compile Include="Enum\ULoginData.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Favorite.cs" />
+    <Compile Include="Model\Home\AppRoles.cs" />
+    <Compile Include="Model\Home\ImageFileType.cs" />
     <Compile Include="Model\Home\PostCommentVM.cs" />
     <Compile Include="Model\Home\PostFavoriteVM.cs" />
     <Compile Include="Model\Home\PostLikeVM.cs" />

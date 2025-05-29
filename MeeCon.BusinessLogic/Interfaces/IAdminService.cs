@@ -1,4 +1,4 @@
-﻿using MeeCon.Domain.Model.Post;
+﻿using MeeCon.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,7 @@ namespace MeeCon.BusinessLogic.Interfaces
     public interface IAdminService
     {
         Task<List<Post>> GetReportedPostsAsync();
+        Task ApproveReportAsync(int postId);
+        Task RejectReportAsync(int postId);
     }
 }
