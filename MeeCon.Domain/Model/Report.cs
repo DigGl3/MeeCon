@@ -1,20 +1,15 @@
-﻿using MeeCon.Domain.Model.User;
-using MeeCon.Web.Models;
+﻿using MeeCon.Domain.Model.Post;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeeCon.Domain.Model
+namespace MeeCon.Domain.Model.Post
 {
     public class Report
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }
 

@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Data\AppDBContext.cs" />
     <Compile Include="Enum\ULoginData.cs" />
+    <Compile Include="Model\Cart\CartItem.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Favorite.cs" />
     <Compile Include="Model\Home\AppRoles.cs" />
@@ -85,7 +86,10 @@
     <Compile Include="Model\Home\RemoveCommentVM.cs" />
     <Compile Include="Model\Like.cs" />
     <Compile Include="Model\Post.cs" />
+    <Compile Include="Model\Posts\Story.cs" />
     <Compile Include="Model\Report.cs" />
+    <Compile Include="Model\Subscription\Subscription.cs" />
+    <Compile Include="Model\Subscription\UserSubscription.cs" />
     <Compile Include="Model\User\UDbModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

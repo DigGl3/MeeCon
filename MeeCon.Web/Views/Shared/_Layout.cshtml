@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MeeCon</title>
+    <title>@ViewBag.Title - MeeCon</title>
     <link href="~/wwwroot/images/favicon.png" rel="icon" type="image/png" />
     <link rel="stylesheet" href="~/wwwroot/css/style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/wwwroot/css/site.css" asp-append-version="true" />
@@ -13,6 +13,8 @@
     <script src="~/wwwroot/js/uikit.min.js"></script>
     <script src="~/wwwroot/js/simplebar.js"></script>
     <script src="~/wwwroot/js/script.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
 
@@ -21,14 +23,64 @@
         @RenderSection("TopBar", required: false)
         @RenderSection("SideBar", required: false)
 
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                @Html.ActionLink("MeeCon", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Feed", "Index", "Feed", null, new { @class = "nav-link" })</li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Cart")">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="badge bg-primary" id="cartCount">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="subscriptionDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-crown"></i> Subscriptions
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>@Html.ActionLink("View Plans", "Index", "Subscription", null, new { @class = "dropdown-item" })</li>
+                                <li>@Html.ActionLink("My Subscription", "Status", "Subscription", null, new { @class = "dropdown-item" })</li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-user"></i> Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
         @RenderBody()
     </div>
 
-    <script src="~/wwwroot/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/wwwroot/js/site.js" asp-append-version="true"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/site")
+    @RenderSection("scripts", required: false)
 
+    <script>
+        // Update cart count
+        function updateCartCount() {
+            $.get('@Url.Action("GetCartCount", "Cart")', function(count) {
+                $('#cartCount').text(count);
+            });
+        }
+
+        // Update cart count on page load
+        $(document).ready(function() {
+            updateCartCount();
+        });
+    </script>
 
     @* Ion Icon *@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

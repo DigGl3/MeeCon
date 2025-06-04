@@ -2,6 +2,7 @@
 using System;
 using System.Xml.Linq;
 using System.ComponentModel.DataAnnotations;
+using MeeCon.Domain.Model.User;
 
 namespace MeeCon.Domain.Model.Post
 {
@@ -23,7 +24,7 @@ namespace MeeCon.Domain.Model.Post
         public int UserId { get; set; }
 
         //Navigation properties
-        public User User { get; set; }
+        public UDbModel User { get; set; }
         public ICollection<Like> Likes { get; set; } = new List<Like>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();

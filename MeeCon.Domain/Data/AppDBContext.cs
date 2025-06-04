@@ -1,4 +1,4 @@
-﻿using MeeCon.Web.Models;
+﻿using MeeCon.Domain.Model.Post;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

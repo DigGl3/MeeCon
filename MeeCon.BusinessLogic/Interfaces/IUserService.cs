@@ -1,5 +1,5 @@
-﻿using MeeCon.Domain.Model.User;
-using MeeCon.Web.Models;
+﻿using MeeCon.Domain.Model.Post;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

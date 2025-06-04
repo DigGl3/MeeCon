@@ -1,34 +1,34 @@
-﻿using MeeCon.Domain.Model;
-using MeeCon.Domain.Model.User;
+﻿using System.Collections.Generic;
 using System;
-using System.Collections.Generic;
+using System.Xml.Linq;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+using MeeCon.Domain.Model.User;
 
-namespace MeeCon.Web.Models
+namespace MeeCon.Domain.Model.Post
 {
     public class Post
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PostId { get; set; }
+        public int Id { get; set; }
+
         public string Content { get; set; }
         public string ImageUrl { get; set; }
         public int NrOfReports { get; set; }
+        public bool IsPrivate { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime DateUpdate { get; set; }
-        public bool IsPrivat {  get; set; }
+        public DateTime DateUpdated { get; set; }
+        public bool IsDeleted { get; set; }
 
-        // [ForeignKey("User")]
+
+        // Foreign key
         public int UserId { get; set; }
 
-        //Navigation property
+        //Navigation properties
         public UDbModel User { get; set; }
         public ICollection<Like> Likes { get; set; } = new List<Like>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-        public ICollection<Favorite> Favorites { get; set;} = new List<Favorite>();
-        public ICollection<Report> Reports { get; set; } = new List<Report>();    
+        public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+        public ICollection<Report> Reports { get; set; } = new List<Report>();
+
     }
 }

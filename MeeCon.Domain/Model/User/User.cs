@@ -4,15 +4,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeeCon.Domain.Model.Post
 {
     public class User 
     {
-        public string FullName { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string PasswordHash { get; set; }
+
         public string ProfilePictureUrl { get; set; }
-        public string Bio { get; set; }
-        public bool IsDeleted { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime? LastLoginAt { get; set; }
+        public bool IsActive { get; set; }
 
         // Navigation properties
         public ICollection<Post> Posts { get; set; } = new List<Post>();

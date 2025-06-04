@@ -1,7 +1,7 @@
 ﻿using MeeCon.BusinessLogic.Interfaces;
 using MeeCon.Domain.Model;
 using MeeCon.Domain.Model.Home;
-using MeeCon.Web.Models;
+using MeeCon.Domain.Model.Post;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -23,7 +23,7 @@ namespace MeeCon.BusinessLogic.Services
         public async Task<List<Post>> GetAllVisiblePostsAsync(int userId)
         {
             return await _context.Posts
-                .Where(n => (!n.IsPrivat || n.UserId == userId) && n.Reports.Count < 5)
+                .Where(n => (!n.IsPrivate || n.UserId == userId) && n.Reports.Count < 5)
                 .Include(n => n.User)
                 .Include(n => n.Likes)
                 .Include(n => n.Comments.Select(p => p.User))
@@ -39,7 +39,7 @@ namespace MeeCon.BusinessLogic.Services
             {
                 Content = post.Content,
                 DateCreated = DateTime.UtcNow,
-                DateUpdate = DateTime.UtcNow,
+                DateUpdated = DateTime.UtcNow,
                 ImageUrl = "",
                 UserId = userId,
                 NrOfReports = 0
@@ -136,11 +136,11 @@ namespace MeeCon.BusinessLogic.Services
         public async Task ToggleVisibilityAsync(int postId, int userId)
         {
             var post = await _context.Posts
-                .FirstOrDefaultAsync(p => p.PostId == postId && p.UserId == userId);
+                .FirstOrDefaultAsync(p => p.Id == postId && p.UserId == userId);
 
             if (post != null)
             {
-                post.IsPrivat = !post.IsPrivat;
+                post.IsPrivate = !post.IsPrivate;
                 _context.Entry(post).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }

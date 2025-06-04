@@ -1,4 +1,5 @@
 ﻿using MeeCon.Domain.Model.Post;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace MeeCon.Domain.Model.Post
 
         // Navigation properties
         public Post Post { get; set; }
-        public User User { get; set; }
+        public UDbModel User { get; set; }
 
     }
 }

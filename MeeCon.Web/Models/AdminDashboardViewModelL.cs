@@ -1,4 +1,5 @@
 ﻿using MeeCon.Domain.Model.Home;
+using MeeCon.Domain.Model.Post;
 using MeeCon.Domain.Model.User;
 using System.Collections.Generic;
 

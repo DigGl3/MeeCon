@@ -1,12 +1,12 @@
-﻿using MeeCon.Domain.Model.User;
-using MeeCon.Web.Models;
+﻿using MeeCon.Domain.Model.Post;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeeCon.Domain.Model
+namespace MeeCon.Domain.Model.Post
 {
     public class Comment
     {

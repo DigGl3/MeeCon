@@ -1,12 +1,11 @@
 ﻿using MeeCon.BusinessLogic.Interfaces;
 using MeeCon.Domain.Model.User;
-using MeeCon.Web.Models;
+using MeeCon.Domain.Model.Post;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MeeCon.BusinessLogic.Interfaces;
 
 namespace MeeCon.BusinessLogic.Core
 {
@@ -43,5 +42,4 @@ namespace MeeCon.BusinessLogic.Core
             }
         }
     }
-
 }

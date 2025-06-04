@@ -1,0 +1,64 @@
+@model MeeCon.Domain.Model.Subscription.UserSubscription
+
+@{
+    ViewBag.Title = "Subscription Status";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Your Subscription Status</h2>
+
+    @if (Model != null)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Subscription.Name</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Status:</strong> @(Model.IsActive ? "Active" : "Inactive")</p>
+                        <p><strong>Start Date:</strong> @Model.StartDate.ToShortDateString()</p>
+                        <p><strong>End Date:</strong> @Model.EndDate.ToShortDateString()</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Price:</strong> $@Model.Subscription.Price/month</p>
+                        <p><strong>Post Limit:</strong> @(Model.Subscription.PostLimit == -1 ? "Unlimited" : Model.Subscription.PostLimit.ToString())</p>
+                        <p><strong>Ad-Free:</strong> @(Model.Subscription.IsAdFree ? "Yes" : "No")</p>
+                    </div>
+                </div>
+
+                @if (Model.Subscription.PostLimit != -1)
+                {
+                    <div class="mt-3">
+                        <h6>Remaining Posts This Month:</h6>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" 
+                                 style="width: @(ViewBag.RemainingPosts * 100 / Model.Subscription.PostLimit)%"
+                                 aria-valuenow="@ViewBag.RemainingPosts" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="@Model.Subscription.PostLimit">
+                                @ViewBag.RemainingPosts of @Model.Subscription.PostLimit
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.IsActive)
+                {
+                    <div class="mt-4">
+                        @using (Html.BeginForm("Cancel", "Subscription", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">Cancel Subscription</button>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            You don't have an active subscription. 
+            <a href="@Url.Action("Index", "Subscription")" class="alert-link">View available plans</a>
+        </div>
+    }
+</div> 

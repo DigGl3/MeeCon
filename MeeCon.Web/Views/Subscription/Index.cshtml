@@ -1,0 +1,65 @@
+@model List<MeeCon.Domain.Model.Subscription.Subscription>
+
+@{
+    ViewBag.Title = "Subscription Plans";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Choose Your Subscription Plan</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="row">
+        @foreach (var subscription in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@subscription.Name</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">$@subscription.Price/month</h6>
+                        <p class="card-text">@subscription.Description</p>
+                        <ul class="list-unstyled">
+                            <li>
+                                <i class="fas fa-check text-success"></i>
+                                @if (subscription.PostLimit == -1)
+                                {
+                                    <span>Unlimited Posts</span>
+                                }
+                                else
+                                {
+                                    <span>@subscription.PostLimit Posts per month</span>
+                                }
+                            </li>
+                            <li>
+                                <i class="fas fa-check text-success"></i>
+                                @if (subscription.IsAdFree)
+                                {
+                                    <span>Ad-Free Experience</span>
+                                }
+                                else
+                                {
+                                    <span>Standard Experience</span>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        @using (Html.BeginForm("Subscribe", "Subscription", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="subscriptionId" value="@subscription.Id" />
+                            <button type="submit" class="btn btn-primary btn-block">Subscribe Now</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div> 

@@ -1,12 +1,14 @@
 ﻿using MeeCon.Domain.Model.Post;
+using MeeCon.Domain.Model.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace MeeCon.Domain.Model.Post
 {
-    public class Favorite
+    public class Report
     {
         public int Id { get; set; }
         public DateTime DateCreated { get; set; }
@@ -16,6 +18,6 @@ namespace MeeCon.Domain.Model.Post
 
         // Navigation properties
         public Post Post { get; set; }
-        public User User { get; set; }
+        public UDbModel User { get; set; }
     }
 }
