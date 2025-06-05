@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MeeCon.BusinessLogic.Core;
 using MeeCon.Domain.Enum;
 using System.ComponentModel.DataAnnotations;
+using MeeCon.BusinessLogic;
 
 namespace MeeCon.Web.Controllers
 {
@@ -47,6 +48,17 @@ namespace MeeCon.Web.Controllers
                 {
                     Session["UserId"] = result.UserId;
                     Session["Username"] = result.FullName;
+                    
+                    // Get user from database to set role
+                    using (var context = new DataContext())
+                    {
+                        var user = context.Users.Find(result.UserId);
+                        if (user != null)
+                        {
+                            AuthHelper.SetLoggedInUser(user);
+                        }
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -81,13 +93,23 @@ namespace MeeCon.Web.Controllers
                         LoginIp = Request.UserHostAddress,
                         LoginDateTime = DateTime.UtcNow,
                         FullName = model.Username
-                        
                     });
 
                     if (result.Success)
                     {
                         Session["UserId"] = result.UserId;
                         Session["Username"] = result.FullName;
+                        
+                        // Get newly created user to set role
+                        using (var context = new DataContext())
+                        {
+                            var user = context.Users.Find(result.UserId);
+                            if (user != null)
+                            {
+                                AuthHelper.SetLoggedInUser(user);
+                            }
+                        }
+
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -107,8 +129,7 @@ namespace MeeCon.Web.Controllers
 
         public ActionResult Logout()
         {
-            Session.Clear();
-            Session.Abandon();
+            AuthHelper.Logout();
             return RedirectToAction("Login");
         }
     }

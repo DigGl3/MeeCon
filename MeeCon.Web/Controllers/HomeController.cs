@@ -3,10 +3,11 @@ using System.Web.Mvc;
 using MeeCon.Web.Models;
 using MeeCon.Domain.Model.Home;
 using MeeCon.BusinessLogic.Interfaces;
+using MeeCon.Web.Controllers;
 
 namespace MeeConPjnw.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IPostService _postService;
 
@@ -17,8 +18,8 @@ namespace MeeConPjnw.Controllers
 
         public async Task<ActionResult> Index()
         {
-            int loggedInUserId = 1011;
-            var allPosts = await _postService.GetAllVisiblePostsAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            var allPosts = await _postService.GetAllVisiblePostsAsync(userId);
             return View(allPosts);
         }
 
@@ -26,28 +27,31 @@ namespace MeeConPjnw.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreatePost(PostVM post)
         {
-            int loggedInUserId = 1011;
-            await _postService.CreatePostAsync(post, loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _postService.CreatePostAsync(post, userId);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> TogglePostLike(PostLikeVM postLikeVM)
         {
-            int loggedInUserId = 1011;
-            await _postService.ToggleLikeAsync(postLikeVM.PostId, loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _postService.ToggleLikeAsync(postLikeVM.PostId, userId);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPostComment(PostCommentVM postCommentVM)
         {
-            int loggedInUserId = 1011;
-            await _postService.AddCommentAsync(postCommentVM, loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _postService.AddCommentAsync(postCommentVM, userId);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePostComment(RemoveCommentVM removeCommentVM)
         {
             await _postService.RemoveCommentAsync(removeCommentVM.CommentId);
@@ -55,26 +59,29 @@ namespace MeeConPjnw.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> TogglePostFavorite(PostFavoriteVM postFavoriteVM)
         {
-            int loggedInUserId = 1011;
-            await _postService.ToggleFavoriteAsync(postFavoriteVM.PostId, loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _postService.ToggleFavoriteAsync(postFavoriteVM.PostId, userId);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> TogglePostVisibility(PostVisibilityVM postVisibilityVM)
         {
-            int loggedInUserId = 1011;
-            await _postService.ToggleVisibilityAsync(postVisibilityVM.PostId, loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _postService.ToggleVisibilityAsync(postVisibilityVM.PostId, userId);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPostReport(PostReportVM postReportVM)
         {
-            int loggedInUserId = 1011;
-            await _postService.AddReportAsync(postReportVM.PostId, loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _postService.AddReportAsync(postReportVM.PostId, userId);
             return RedirectToAction("Index");
         }
     }

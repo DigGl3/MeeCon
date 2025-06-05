@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using MeeCon.BusinessLogic.Interfaces;
 using MeeCon.Domain.Model;
+using MeeCon.Web.Controllers;
 
 namespace MeeConPjnw.Controllers
 {
-    public class SubscriptionController : Controller
+    public class SubscriptionController : BaseController
     {
         private readonly ISubscriptionService _subscriptionService;
 
@@ -24,8 +25,8 @@ namespace MeeConPjnw.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Subscribe(int subscriptionId)
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var success = await _subscriptionService.SubscribeUserAsync(loggedInUserId, subscriptionId);
+            var userId = GetLoggedInUserId();
+            var success = await _subscriptionService.SubscribeUserAsync(userId, subscriptionId);
             
             if (success)
             {
@@ -43,8 +44,8 @@ namespace MeeConPjnw.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Cancel()
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var success = await _subscriptionService.CancelSubscriptionAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            var success = await _subscriptionService.CancelSubscriptionAsync(userId);
             
             if (success)
             {

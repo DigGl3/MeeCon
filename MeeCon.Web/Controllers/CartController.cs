@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MeeCon.Web.Controllers
 {
-    public class CartController : Controller
+    public class CartController : BaseController
     {
         private readonly ICartService _cartService;
 
@@ -18,9 +18,9 @@ namespace MeeCon.Web.Controllers
         // GET: Cart
         public async Task<ActionResult> Index()
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var cartItems = await _cartService.GetCartItemsAsync(loggedInUserId);
-            var total = await _cartService.GetCartTotalAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            var cartItems = await _cartService.GetCartItemsAsync(userId);
+            var total = await _cartService.GetCartTotalAsync(userId);
             
             ViewBag.Total = total;
             return View(cartItems);
@@ -31,8 +31,8 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddToCart(int subscriptionId)
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            await _cartService.AddToCartAsync(loggedInUserId, subscriptionId);
+            var userId = GetLoggedInUserId();
+            await _cartService.AddToCartAsync(userId, subscriptionId);
             return RedirectToAction("Index");
         }
 
@@ -41,8 +41,8 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveFromCart(int cartItemId)
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            await _cartService.RemoveFromCartAsync(loggedInUserId, cartItemId);
+            var userId = GetLoggedInUserId();
+            await _cartService.RemoveFromCartAsync(userId, cartItemId);
             return RedirectToAction("Index");
         }
 
@@ -51,17 +51,17 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ClearCart()
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            await _cartService.ClearCartAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            await _cartService.ClearCartAsync(userId);
             return RedirectToAction("Index");
         }
 
         // GET: Cart/Checkout
         public async Task<ActionResult> Checkout()
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var cartItems = await _cartService.GetCartItemsAsync(loggedInUserId);
-            var total = await _cartService.GetCartTotalAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            var cartItems = await _cartService.GetCartItemsAsync(userId);
+            var total = await _cartService.GetCartTotalAsync(userId);
             
             ViewBag.Total = total;
             return View(cartItems);
@@ -72,8 +72,8 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ProcessPayment(string paymentMethod)
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var success = await _cartService.ProcessPaymentAsync(loggedInUserId, paymentMethod);
+            var userId = GetLoggedInUserId();
+            var success = await _cartService.ProcessPaymentAsync(userId, paymentMethod);
             
             if (success)
             {
@@ -91,8 +91,8 @@ namespace MeeCon.Web.Controllers
         [HttpGet]
         public async Task<JsonResult> GetCartCount()
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var cartItems = await _cartService.GetCartItemsAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            var cartItems = await _cartService.GetCartItemsAsync(userId);
             return Json(cartItems.Count, JsonRequestBehavior.AllowGet);
         }
     }

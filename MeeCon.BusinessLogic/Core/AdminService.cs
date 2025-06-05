@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MeeCon.Domain.Enum;
+using MeeCon.Domain.Model.Home;
 
 namespace MeeCon.BusinessLogic.Core
 {
@@ -40,6 +42,12 @@ namespace MeeCon.BusinessLogic.Core
                 _context.Posts.Remove(post);
                 _context.SaveChanges();
             }
+        }
+
+        public bool IsUserAdmin(int userId)
+        {
+            var user = _context.Users.Find(userId);
+            return user != null && user.Role == AppRoles.Admin;
         }
     }
 }

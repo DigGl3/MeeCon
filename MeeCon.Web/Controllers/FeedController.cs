@@ -2,10 +2,11 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using MeeCon.BusinessLogic.Interfaces;
 using MeeCon.Domain.Model.Home;
+using MeeCon.Web.Controllers;
 
 namespace MeeConPjnw.Controllers
 {
-    public class FeedController : Controller
+    public class FeedController : BaseController
     {
         private readonly IPostService _postService;
         private readonly ISubscriptionService _subscriptionService;
@@ -18,9 +19,9 @@ namespace MeeConPjnw.Controllers
 
         public async Task<ActionResult> Index()
         {
-            int loggedInUserId = 1011; // This should come from your authentication system
-            var allPosts = await _postService.GetAllVisiblePostsAsync(loggedInUserId);
-            var isAdFree = await _subscriptionService.IsUserAdFreeAsync(loggedInUserId);
+            var userId = GetLoggedInUserId();
+            var allPosts = await _postService.GetAllVisiblePostsAsync(userId);
+            var isAdFree = await _subscriptionService.IsUserAdFreeAsync(userId);
             
             ViewBag.IsAdFree = isAdFree;
             return View(allPosts);

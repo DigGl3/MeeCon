@@ -14,6 +14,6 @@ namespace MeeCon.BusinessLogic.Interfaces
         List<Post> GetAllPosts();
         void DeleteUser(int userId);
         void DeletePost(int postId);
+        bool IsUserAdmin(int userId);
     }
-
 }

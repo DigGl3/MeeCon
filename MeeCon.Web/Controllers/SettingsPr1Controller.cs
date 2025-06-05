@@ -14,8 +14,7 @@ using System.Web.Mvc;
 namespace MeeCon.Web.Controllers
 {
     [Authorize(Roles = AppRoles.User + "," + AppRoles.Admin)]
-
-    public class SettingsController : Controller
+    public class SettingsController : BaseController
     {
         private readonly IUsersService _usersService;
         private readonly IFilesService _filesService;
@@ -34,13 +33,14 @@ namespace MeeCon.Web.Controllers
         // GET: /Settings
         public async Task<IActionResult> Index()
         {
-            var loggedInUser = 1;
-            if (loggedInUser == null)
+            var userId = GetLoggedInUserId();
+            var user = await _usersService.GetUser(userId);
+            if (user == null)
             {
                 return (IActionResult)RedirectToAction("Index");
             }
 
-            return (IActionResult)View(loggedInUser);
+            return (IActionResult)View(user);
         }
 
         // POST: /Settings/UpdateProfilePicture
@@ -48,7 +48,7 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UpdateProfilePicture(UpdateProfilePictureVM model)
         {
-            var userId = 1011;
+            var userId = GetLoggedInUserId();
             if (userId == null)
             {
                 return RedirectToAction("Index");
@@ -62,7 +62,7 @@ namespace MeeCon.Web.Controllers
 
             var imageUrl = await _filesService.UploadImageAsync(model.ProfilePictureImage, ImageFileType.ProfilePicture);
         
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

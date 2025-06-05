@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Data.Entity.Validation;
 using System.Runtime.InteropServices;
 using static System.Net.Mime.MediaTypeNames;
+using MeeCon.Domain.Model.Home;
+using System.Web;
 
 namespace MeeCon.BusinessLogic.Core
 {
@@ -37,7 +39,8 @@ namespace MeeCon.BusinessLogic.Core
                         Password = data.Password,
                         CreatedAt = DateTime.UtcNow,
                         Email = data.Email,
-                        ProfileImage = "~/wwwroot/images/avatar/user.png"
+                        ProfileImage = "~/wwwroot/images/avatar/user.png",
+                        Role = AppRoles.User // Set default role for new users
                     };
 
                     context.Users.Add(newUser);
@@ -117,6 +120,9 @@ namespace MeeCon.BusinessLogic.Core
                         };
                     }
 
+                    // Store user role in session
+                    HttpContext.Current.Session["UserRole"] = user.Role;
+
                     return new UserLoginResult
                     {
                         Status = true,
@@ -137,7 +143,5 @@ namespace MeeCon.BusinessLogic.Core
                 };
             }
         }
-
-        
     }
 }

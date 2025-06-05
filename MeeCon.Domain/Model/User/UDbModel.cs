@@ -7,6 +7,8 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using MeeCon.Domain.Model.Post;
+using MeeCon.Domain.Enum;
+using MeeCon.Domain.Model.Home;
 
 namespace MeeCon.Domain.Model.User
 {
@@ -27,6 +29,8 @@ namespace MeeCon.Domain.Model.User
         public string Email { get; set; }
         public string ProfileImage { get; set; }
         public bool IsDeleted { get; set; }
+        [Required]
+        public string Role { get; set; } = AppRoles.User;
         
         public virtual ICollection<MeeCon.Domain.Model.Post.Post> Posts { get; set; } = new List<MeeCon.Domain.Model.Post.Post>();
         public virtual ICollection<Like> Likes { get; set; } = new List<Like>();

@@ -4,10 +4,13 @@ using System.Web.Mvc;
 using MeeCon.BusinessLogic;
 using System.Linq;
 using MeeCon.BusinessLogic.Interfaces;
+using MeeCon.BusinessLogic.Core;
+using MeeCon.Domain.Model.Home;
 
 namespace MeeCon.Web.Controllers
 {
-    public class AdminNController : Controller
+    [Authorize(Roles = AppRoles.Admin)]
+    public class AdminNController : BaseController
     {
         private readonly IAdminServices _adminService;
 
@@ -18,9 +21,10 @@ namespace MeeCon.Web.Controllers
 
         public ActionResult Index()
         {
-            if (Session["UserId"] == null || (int)Session["UserId"] != 1011)
+            var userId = GetLoggedInUserId();
+            if (!_adminService.IsUserAdmin(userId))
             {
-                ViewBag.ErrorMessage = "Trebuie să fii conectat cu userId 1011 pentru a avea acces la această pagină.";
+                ViewBag.ErrorMessage = "You do not have permission to access this page.";
                 return RedirectToAction("Login", "Auth");
             }
 
@@ -37,7 +41,13 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteUser(int userId)
         {
-            if (userId == 1011) return RedirectToAction("Index");
+            var currentUserId = GetLoggedInUserId();
+            if (!_adminService.IsUserAdmin(currentUserId))
+            {
+                return RedirectToAction("Index");
+            }
+
+            if (userId == currentUserId) return RedirectToAction("Index");
 
             _adminService.DeleteUser(userId);
             return RedirectToAction(nameof(Index));
@@ -47,9 +57,14 @@ namespace MeeCon.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeletePost(int postId)
         {
+            var userId = GetLoggedInUserId();
+            if (!_adminService.IsUserAdmin(userId))
+            {
+                return RedirectToAction("Index");
+            }
+
             _adminService.DeletePost(postId);
             return RedirectToAction(nameof(Index));
         }
     }
-
 }
